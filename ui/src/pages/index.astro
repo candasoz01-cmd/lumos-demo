@@ -1,0 +1,2896 @@
+---
+import GlobalMay19Corner from "../components/GlobalMay19Corner.astro";
+
+const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
+---
+
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Lumos by We Lock AI</title>
+    <meta
+      name="description"
+      content="We Lock AI çatısı altındaki Lumos: tek panelde çoklu akışı bir araya getiren, kararı kullanıcıda tutan yapay zekâ kontrol ve asistan katmanı."
+    />
+    <link rel="canonical" href="https://welockai.com/" />
+    <meta property="og:title" content="Lumos by We Lock AI" />
+    <meta
+      property="og:description"
+      content="Lumos, We Lock AI çatısı altında geliştirilen insan merkezli yapay zekâ kontrol katmanıdır."
+    />
+    <meta property="og:url" content="https://welockai.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:image" content="https://welockai.com/lumos-world-map.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <link rel="icon" href="/lumos-tree-logo.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/lumos-tree-logo.svg" />
+    <link rel="stylesheet" href="/styles/lumos-tokens.css" />
+    <style>
+      /**
+       * Landing: Lumos-son hero havası — çok koyu lacivert/siyah zemin, elektrik cyan-mavi,
+       * kontrollü sıcak altın ikincil. `--lumos-land-teal` adı panel uyumu için; değerler cyan-mavi kanalı.
+       */
+      :root {
+        --lumos-land-teal: 56 206 255;
+        --lumos-land-teal-deep: 8 52 108;
+        --lumos-land-warm: 186 148 88;
+        --lumos-land-warm-deep: 128 96 54;
+        /** Harita / hero ile aynı zemin */
+        --lumos-map-canvas: #020511;
+        --lumos-land-page: #030714;
+        --lumos-land-title: #e9eef5;
+        --lumos-text-muted: #aeb6c8;
+        --lumos-text-body: #d4dae8;
+        --lumos-text-sep: rgb(138 152 172 / 0.42);
+        --lumos-heading-warm: #d6ccb8;
+        --lumos-interactive-fg: rgb(var(--lumos-land-teal) / 0.92);
+        --lumos-interactive-fg-hover: #b8f0ff;
+
+        --lumos-accent-blue: rgb(130 206 255 / 0.92);
+        --lumos-accent-blue-soft: rgb(var(--lumos-land-teal) / 0.34);
+        --lumos-accent-blue-bright: #a8e9ff;
+        --lumos-accent-gold: #c6a66a;
+
+        --lumos-vizyon-card-bg: rgba(4, 8, 18, 0.96);
+        --lumos-vizyon-card-border: rgb(var(--lumos-land-teal) / 0.2);
+        --lumos-vizyon-card-border-gold: rgb(var(--lumos-land-warm) / 0.16);
+        --lumos-vizyon-eyebrow: rgb(152 174 200 / 0.78);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body.lumos-landing {
+        margin: 0;
+        min-height: 100vh;
+        background-color: var(--lumos-land-page);
+        background-image:
+          radial-gradient(ellipse 130% 88% at 50% -6%, rgb(12 40 88 / 0.48), transparent 54%),
+          radial-gradient(ellipse 88% 52% at 94% 38%, rgb(var(--lumos-land-teal) / 0.06), transparent 46%),
+          radial-gradient(ellipse 72% 48% at 10% 72%, rgb(var(--lumos-land-warm) / 0.028), transparent 50%),
+          linear-gradient(178deg, #010308 0%, #061022 44%, #030714 100%);
+        background-attachment: fixed;
+        color: var(--lumos-land-title);
+        font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      .lumos-site-nav {
+        margin: 0 0 clamp(0.65rem, 1.8vw, 1rem);
+        padding-bottom: clamp(0.5rem, 1.3vw, 0.72rem);
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.38);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.14);
+      }
+      .lumos-site-nav__bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.45rem 0.65rem;
+        flex-wrap: wrap;
+      }
+      .lumos-site-nav__brand-left {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        margin-right: auto;
+        padding-left: 0.05rem;
+        overflow: visible;
+        align-self: flex-start;
+        padding-top: 0.12rem;
+      }
+      .lumos-site-nav__corner {
+        flex: 0 0 auto;
+        padding-left: 0.35rem;
+        padding-right: max(0.15rem, env(safe-area-inset-right, 0px));
+      }
+      .lumos-site-nav__list {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 0.25rem 0.65rem;
+        margin: 0;
+        padding: 0 0 2px;
+        list-style: none;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgb(var(--lumos-land-teal) / 0.38) transparent;
+      }
+      .lumos-site-nav__list::-webkit-scrollbar {
+        height: 4px;
+      }
+      .lumos-site-nav__list::-webkit-scrollbar-thumb {
+        background: rgb(var(--lumos-land-teal) / 0.4);
+        border-radius: 4px;
+      }
+      .lumos-site-nav__link {
+        display: inline-block;
+        flex-shrink: 0;
+        padding: 0.32rem 0.48rem;
+        font-size: clamp(0.7rem, 2.35vw, 0.85rem);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: rgb(var(--lumos-land-teal) / 0.88);
+        text-decoration: none;
+        white-space: nowrap;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+      .lumos-site-nav__link:hover,
+      .lumos-site-nav__link:focus-visible {
+        color: var(--lumos-accent-blue-bright);
+        border-color: rgb(var(--lumos-land-teal) / 0.38);
+        background: rgba(8, 14, 28, 0.58);
+      }
+      .lumos-site-nav__link:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.45);
+        outline-offset: 2px;
+      }
+      .lumos-site-nav__link--accent {
+        color: rgb(var(--lumos-land-warm) / 0.88);
+      }
+      .lumos-site-nav__link--accent:hover,
+      .lumos-site-nav__link--accent:focus-visible {
+        color: rgb(var(--lumos-land-warm) / 0.98);
+        border-color: rgb(var(--lumos-land-warm-deep) / 0.38);
+        background: rgba(12, 10, 8, 0.5);
+      }
+      .lumos-site-nav__brand-left .lumos-site-nav__logo {
+        margin-right: 0;
+      }
+      .lumos-site-nav__logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.28rem 0.32rem;
+        overflow: visible;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .lumos-site-nav__logo:hover,
+      .lumos-site-nav__logo:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.22);
+        background: rgba(8, 14, 28, 0.28);
+      }
+      .lumos-site-nav__logo:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.45);
+        outline-offset: 2px;
+      }
+      /** Lumos site logosu: vektör ağaç işareti (lumos-tree-logo.svg); filtre bağlamda (nav / hero) ayrı */
+      .lumos-logo-mark {
+        display: block;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        object-fit: contain;
+        object-position: center center;
+      }
+      .lumos-site-nav__logo .lumos-logo-mark {
+        width: 1.42rem;
+        height: 1.42rem;
+        max-width: none;
+        max-height: none;
+        opacity: 1;
+        filter: brightness(1.06) saturate(1.08) contrast(1.04)
+          drop-shadow(0 0 1px rgb(56 206 255 / 0.22))
+          drop-shadow(0 0 10px rgb(56 206 255 / 0.08))
+          drop-shadow(0 0 18px rgb(56 206 255 / 0.04));
+      }
+      .lumos-hero-title-lockup {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.28rem, 1vw, 0.48rem);
+        margin: 0 0 0.45rem;
+        overflow: visible;
+        min-width: 0;
+      }
+      .lumos-hero-title-lockup .lumos-hero-title-mark {
+        width: clamp(1.36rem, 3.4vw, 1.82rem);
+        height: clamp(1.36rem, 3.4vw, 1.82rem);
+        margin-top: 0.04em;
+        margin-right: 0;
+        flex-shrink: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+        background: none;
+        opacity: 1;
+        filter: brightness(1.07) saturate(1.1) contrast(1.04)
+          drop-shadow(0 0 1px rgb(var(--lumos-land-teal) / 0.28))
+          drop-shadow(0 0 12px rgb(var(--lumos-land-teal) / 0.1))
+          drop-shadow(0 0 22px rgb(var(--lumos-land-teal) / 0.05));
+        box-shadow: none;
+      }
+      .lumos-hero-title-lockup .lumos-hero-title-page {
+        margin: 0;
+      }
+      .lumos-hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.55rem;
+        margin: 0.35rem 0 0;
+      }
+      /** Lumos'a sor: hero altında tam genişlik ince şerit — hero metin/sahne sıkışması yok */
+      .lumos-hero-ask-band {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: min(44rem, 100%);
+        margin: clamp(0.85rem, 2.2vw, 1.35rem) auto 0;
+        padding: 0;
+      }
+      .lumos-hero-ask {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 0.45rem 0.55rem;
+        margin: 0;
+        max-width: 100%;
+        min-width: 0;
+      }
+      .lumos-hero-ask__field {
+        flex: 1 1 12rem;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 0.38rem 0.55rem;
+        border-radius: 8px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.42);
+        background: rgba(4, 10, 22, 0.88);
+        color: var(--lumos-text-body);
+        font-size: clamp(0.8rem, 1.85vw, 0.9rem);
+        line-height: 1.35;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+      }
+      .lumos-hero-ask__field::placeholder {
+        color: rgb(174 182 200 / 0.55);
+      }
+      .lumos-hero-ask__field:hover {
+        border-color: rgb(var(--lumos-land-teal) / 0.58);
+        box-shadow: 0 0 0 1px rgb(var(--lumos-land-warm-deep) / 0.12);
+      }
+      .lumos-hero-ask__field:focus {
+        outline: none;
+        border-color: rgb(var(--lumos-land-warm) / 0.45);
+        box-shadow: 0 0 0 1px rgb(var(--lumos-land-warm) / 0.22), 0 0 0 3px rgb(var(--lumos-land-teal) / 0.12);
+        color: var(--lumos-land-title);
+      }
+      .lumos-hero-ask__field:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-warm) / 0.42);
+        outline-offset: 2px;
+      }
+      .lumos-hero-ask__submit {
+        flex: 0 0 auto;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        min-height: 40px;
+        padding: 0.38rem 0.95rem;
+        border-radius: 8px;
+        border: 1px solid rgb(118 198 238 / 0.52);
+        background: linear-gradient(
+          152deg,
+          rgb(26 108 168) 0%,
+          rgb(12 72 132) 46%,
+          rgb(7 48 102) 100%
+        );
+        color: #f2f7fb;
+        text-shadow: 0 1px 0 rgb(0 0 0 / 0.22);
+        font-size: clamp(0.78rem, 1.75vw, 0.88rem);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+        cursor: pointer;
+        box-shadow:
+          inset 0 1px 0 rgb(255 255 255 / 0.14),
+          0 2px 10px rgb(0 0 0 / 0.32);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
+      }
+      .lumos-hero-ask__submit:hover {
+        border-color: rgb(168 220 248 / 0.78);
+        color: #ffffff;
+        box-shadow:
+          inset 0 1px 0 rgb(255 255 255 / 0.18),
+          0 0 0 1px rgb(var(--lumos-land-teal) / 0.32),
+          0 0 20px rgb(var(--lumos-land-teal) / 0.26),
+          0 0 32px rgb(var(--lumos-land-warm) / 0.14),
+          0 4px 14px rgb(0 0 0 / 0.38);
+      }
+      .lumos-hero-ask__submit:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-warm) / 0.48);
+        outline-offset: 2px;
+        border-color: rgb(188 228 255 / 0.88);
+        color: #ffffff;
+        box-shadow:
+          inset 0 1px 0 rgb(255 255 255 / 0.2),
+          0 0 0 1px rgb(var(--lumos-land-teal) / 0.42),
+          0 0 22px rgb(var(--lumos-land-teal) / 0.34),
+          0 0 40px rgb(var(--lumos-land-warm) / 0.2),
+          0 4px 16px rgb(0 0 0 / 0.4);
+      }
+      .lumos-hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-height: 44px;
+        padding: 0.52rem 1.05rem;
+        border-radius: 10px;
+        font-size: clamp(0.84rem, 2vw, 0.92rem);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      }
+      .lumos-hero-btn--primary {
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.48);
+        background: linear-gradient(165deg, rgba(18, 28, 42, 0.95) 0%, rgba(14, 18, 30, 0.92) 100%);
+        color: var(--lumos-interactive-fg);
+      }
+      .lumos-hero-btn--primary:hover,
+      .lumos-hero-btn--primary:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.68);
+        color: var(--lumos-interactive-fg-hover);
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35), 0 0 0 1px rgb(var(--lumos-land-teal) / 0.12);
+        transform: translateY(-1px);
+      }
+      .lumos-hero-btn--ghost {
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.32);
+        background: rgba(8, 14, 26, 0.62);
+        color: rgb(var(--lumos-land-teal) / 0.88);
+      }
+      .lumos-hero-btn--ghost:hover,
+      .lumos-hero-btn--ghost:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.52);
+        color: var(--lumos-interactive-fg-hover);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28), 0 0 0 1px rgb(var(--lumos-land-warm-deep) / 0.12);
+        transform: translateY(-1px);
+      }
+      .lumos-hero-btn:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.5);
+        outline-offset: 3px;
+      }
+      #ilkeler.lumos-section--post-hero {
+        margin-top: clamp(0.25rem, 1vw, 0.5rem);
+      }
+      #moduller,
+      #ilkeler,
+      #dunya,
+      #dunya-vizyon,
+      #gelistirici,
+      #kurulum,
+      #neden-lumos {
+        scroll-margin-top: 1.25rem;
+      }
+      /** Giriş: sinematik şerit — metin solda, sağda Atatürk sınıf sahnesi (kırpılmış raster, mockup UI yok) */
+      #top.lumos-section {
+        position: relative;
+        isolation: isolate;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: clamp(1.35rem, 3.2vw, 2.15rem);
+        overflow: visible;
+        min-height: 0;
+        border-radius: 0;
+        background: radial-gradient(ellipse 120% 80% at 18% 20%, rgb(12 40 88 / 0.35), transparent 55%), #020511;
+      }
+      #top.lumos-section--tight-top {
+        padding-top: 0;
+      }
+      .lumos-site-nav--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 24;
+        margin: 0 calc(-1 * clamp(0.65rem, 2vw, 1.25rem));
+        padding: clamp(0.35rem, 1vw, 0.55rem) clamp(0.65rem, 2vw, 1.25rem) clamp(0.45rem, 1.1vw, 0.65rem);
+        background: rgb(2 5 17 / 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.28);
+      }
+      .lumos-site-nav__brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.42rem;
+        text-decoration: none;
+        color: inherit;
+      }
+      .lumos-site-nav__brand-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.08rem;
+        line-height: 1.05;
+      }
+      .lumos-site-nav__brand-title {
+        font-size: clamp(0.82rem, 2.1vw, 0.98rem);
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--lumos-land-title);
+      }
+      .lumos-site-nav__brand-sub {
+        font-size: clamp(0.58rem, 1.35vw, 0.68rem);
+        font-weight: 650;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgb(var(--lumos-land-warm) / 0.9);
+      }
+      .lumos-hero-cinematic__inner {
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: clamp(0.35rem, 1vw, 0.55rem);
+        padding-bottom: clamp(1.1rem, 2.8vw, 1.75rem);
+      }
+      /** Tek hero şeridi: metin + sahne aynı ızgarada; sahne ayrı “kart” gibi görünmesin */
+      .lumos-hero-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(0.75rem, 2vw, 1.25rem);
+        align-items: center;
+        width: 100%;
+        min-height: 0;
+        padding-top: clamp(0.35rem, 1.2vw, 0.75rem);
+      }
+      @media (min-width: 768px) {
+        .lumos-hero-layout {
+          grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.95fr);
+          gap: clamp(0.85rem, 2.2vw, 1.65rem);
+          align-items: stretch;
+        }
+        .lumos-hero-actions {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 0.55rem 0.75rem;
+        }
+        .lumos-hero-btn {
+          width: auto;
+          flex: 0 0 auto;
+        }
+      }
+      .lumos-hero-scene {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-width: 0;
+        padding: clamp(0.12rem, 0.45vw, 0.35rem);
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.14);
+        background-color: #020511;
+        background-image:
+          radial-gradient(ellipse 95% 72% at 82% 22%, rgb(56 206 255 / 0.12), transparent 58%),
+          radial-gradient(ellipse 70% 55% at 18% 78%, rgb(56 206 255 / 0.05), transparent 52%),
+          radial-gradient(ellipse 50% 42% at 48% 48%, rgb(255 255 255 / 0.03), transparent 55%),
+          radial-gradient(ellipse 58% 50% at 12% 92%, rgb(var(--lumos-land-warm) / 0.05), transparent 54%),
+          linear-gradient(168deg, #020511 0%, #061022 55%, #01040d 100%);
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+        min-height: clamp(260px, 46vmin, 620px);
+      }
+      .lumos-hero-scene__img {
+        position: relative;
+        z-index: 2;
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: clamp(240px, min(56vmin, 68vh), 640px);
+        object-fit: contain;
+        object-position: center center;
+        margin-inline: auto;
+        pointer-events: none;
+        user-select: none;
+      }
+      .lumos-hero-scene::before {
+        content: "";
+        position: absolute;
+        inset: -35% -20%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.35;
+        background: radial-gradient(ellipse 55% 90% at 88% 32%, rgb(160 210 255 / 0.14), transparent 62%);
+      }
+      .lumos-hero-scene::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(198deg, rgb(1 3 10 / 0.22) 0%, rgb(1 3 10 / 0.05) 44%, transparent 62%),
+          radial-gradient(ellipse 72% 58% at 90% 24%, rgb(56 206 255 / 0.04), transparent 58%),
+          linear-gradient(160deg, rgb(2 5 17 / 0.18) 0%, transparent 52%);
+      }
+      @media (max-width: 767.98px) {
+        .lumos-hero-scene {
+          min-height: clamp(200px, 48vw, 380px);
+        }
+        .lumos-hero-scene__img {
+          max-height: clamp(200px, min(56vw, 50vh), 420px);
+        }
+      }
+      /** Masaüstü: sahne sütunu metin yüksekliğine gerilmesin; görsel daha büyük, dikey lacivert şerit azalsın */
+      @media (min-width: 768px) {
+        .lumos-hero-scene {
+          align-self: start;
+          padding: clamp(0.08rem, 0.35vw, 0.22rem) clamp(0.18rem, 0.55vw, 0.38rem);
+          min-height: clamp(280px, 42vmin, 560px);
+        }
+        .lumos-hero-scene__img {
+          max-height: clamp(300px, min(64vmin, 80vh), 720px);
+        }
+      }
+      .lumos-hero-copy {
+        max-width: min(38rem, 100%);
+        flex: 0 1 auto;
+        min-width: 0;
+      }
+      .lumos-hero-eyebrow {
+        margin: 0 0 0.55rem;
+        font-size: clamp(0.68rem, 1.55vw, 0.78rem);
+        font-weight: 650;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgb(196 214 232 / 0.88);
+      }
+      .lumos-hero-title-page {
+        margin: 0;
+        font-size: clamp(2.35rem, 7vw, 3.85rem);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--lumos-land-title);
+        -webkit-tap-highlight-color: transparent;
+        text-shadow:
+          0 0 26px rgb(var(--lumos-land-teal) / 0.14),
+          0 1px 0 rgb(255 255 255 / 0.14);
+      }
+      .lumos-hero-title-page::selection {
+        background-color: rgb(var(--lumos-land-teal) / 0.32);
+        color: var(--lumos-land-title);
+      }
+      .lumos-hero-title-page::-moz-selection {
+        background-color: rgb(var(--lumos-land-teal) / 0.32);
+        color: var(--lumos-land-title);
+      }
+      .lumos-hero-title-page--manifesto {
+        max-width: min(38rem, 100%);
+        font-size: clamp(1.42rem, 3.55vw, 2.28rem);
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+      }
+      @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+        .lumos-hero-title-page {
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          background-image: linear-gradient(
+            168deg,
+            #f7f9fc 0%,
+            #e4ecf6 28%,
+            #9eb4d4 64%,
+            #d2deed 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          text-shadow: none;
+        }
+        .lumos-hero-title-page::selection {
+          -webkit-text-fill-color: var(--lumos-land-title);
+          color: var(--lumos-land-title);
+        }
+        .lumos-hero-title-page::-moz-selection {
+          color: var(--lumos-land-title);
+        }
+      }
+      .lumos-hero-subtitle {
+        margin: 0 0 1.05rem;
+        max-width: min(48ch, 100%);
+        font-size: clamp(1.05rem, 2.65vw, 1.42rem);
+        line-height: 1.42;
+        font-weight: 600;
+        color: var(--lumos-text-body);
+      }
+      .lumos-hero-lead {
+        margin: 0 0 1.35rem;
+        max-width: min(58ch, 100%);
+        font-size: clamp(0.95rem, 2vw, 1.08rem);
+        line-height: 1.62;
+        color: var(--lumos-text-muted);
+      }
+      .lumos-hero-pillar {
+        margin: 0 0 1.15rem;
+        max-width: 48ch;
+        font-size: clamp(0.92rem, 1.85vw, 1.02rem);
+        line-height: 1.55;
+        font-weight: 650;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgb(var(--lumos-land-teal) / 0.88);
+        overflow-wrap: break-word;
+      }
+      @media (min-width: 768px) {
+        .lumos-hero-pillar {
+          max-width: none;
+          white-space: normal;
+          font-size: clamp(0.78rem, 1.35vw, 0.96rem);
+          letter-spacing: 0.04em;
+        }
+      }
+      @media (max-width: 559.98px) {
+        #top.lumos-section {
+          padding-bottom: clamp(1.15rem, 3.2vw, 1.85rem);
+        }
+      }
+      .lumos-dunya-hero {
+        position: relative;
+        isolation: isolate;
+        padding-top: clamp(0.5rem, 1.5vw, 0.85rem);
+        padding-bottom: clamp(1.15rem, 2.8vw, 1.85rem);
+      }
+      .lumos-dunya-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.4;
+        background:
+          radial-gradient(ellipse 72% 58% at 58% 36%, rgb(var(--lumos-land-teal-deep) / 0.12), transparent 58%),
+          repeating-linear-gradient(90deg, rgb(var(--lumos-land-teal) / 0.022) 0 1px, transparent 1px 56px),
+          repeating-linear-gradient(0deg, rgb(var(--lumos-land-teal) / 0.018) 0 1px, transparent 1px 56px);
+      }
+      .lumos-dunya-hero > * {
+        position: relative;
+        z-index: 1;
+      }
+      .lumos-dunya-hero__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(1.15rem, 2.8vw, 1.85rem);
+        align-items: center;
+      }
+      @media (min-width: 880px) {
+        .lumos-dunya-hero__grid {
+          grid-template-columns: minmax(0, 1.05fr) minmax(220px, 0.95fr);
+          gap: clamp(1.35rem, 3.2vw, 2.5rem);
+        }
+      }
+      .lumos-dunya-hero h2 {
+        margin: 0 0 0.6rem;
+        font-size: clamp(1.75rem, 3.8vw, 2.25rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--lumos-land-title);
+        line-height: 1.15;
+        padding-bottom: 0.45rem;
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.26);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.1);
+      }
+      .lumos-dunya-hero__copy > p {
+        margin: 0 0 0.75rem;
+        font-size: 0.98rem;
+        line-height: 1.62;
+        color: var(--lumos-text-muted, #c9ced9);
+        max-width: 54ch;
+      }
+      .lumos-dunya-hero__meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.35rem 0.5rem;
+        margin: 0.25rem 0 0;
+        font-size: 0.88rem;
+      }
+      .lumos-dunya-hero__sep {
+        color: var(--lumos-text-sep);
+        user-select: none;
+      }
+      .lumos-dunya-hero__link {
+        color: var(--lumos-accent-blue);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid var(--lumos-accent-blue-soft);
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .lumos-dunya-hero__link:hover,
+      .lumos-dunya-hero__link:focus-visible {
+        color: var(--lumos-accent-blue-bright);
+        border-bottom-color: rgb(var(--lumos-land-teal) / 0.52);
+      }
+      .lumos-dunya-hero__link:focus-visible {
+        outline: 2px solid var(--lumos-accent-blue-soft);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+      .lumos-dunya-hero__link--subtle {
+        color: rgb(var(--lumos-land-teal) / 0.95);
+        border-bottom-color: rgb(var(--lumos-land-teal) / 0.35);
+      }
+      .lumos-dunya-hero__link--subtle:hover,
+      .lumos-dunya-hero__link--subtle:focus-visible {
+        color: var(--lumos-interactive-fg-hover);
+        border-bottom-color: rgb(var(--lumos-land-teal) / 0.42);
+      }
+      .lumos-dunya-hero__vizyon-card {
+        position: relative;
+        isolation: isolate;
+        box-sizing: border-box;
+        margin: 0;
+        padding: clamp(1.2rem, 2.6vw, 1.65rem) clamp(1.05rem, 2.3vw, 1.45rem);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.45);
+        outline: 1px solid rgb(var(--lumos-land-warm) / 0.22);
+        outline-offset: 2px;
+        background-color: var(--lumos-map-canvas);
+        background-image:
+          radial-gradient(ellipse 92% 72% at 78% 18%, rgb(var(--lumos-land-teal) / 0.14), transparent 58%),
+          radial-gradient(ellipse 70% 55% at 12% 88%, rgb(var(--lumos-land-warm) / 0.07), transparent 52%),
+          linear-gradient(168deg, #01040d 0%, #061022 48%, #020511 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.05),
+          inset 0 0 72px rgba(0, 0, 0, 0.32),
+          0 12px 40px rgba(0, 0, 0, 0.48),
+          0 0 0 1px rgb(var(--lumos-land-teal-deep) / 0.28),
+          0 0 32px rgb(var(--lumos-land-teal) / 0.12),
+          0 0 60px rgb(var(--lumos-land-teal) / 0.05);
+      }
+      .lumos-dunya-hero__vizyon-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.42;
+        background:
+          repeating-linear-gradient(90deg, rgb(var(--lumos-land-teal) / 0.055) 0 1px, transparent 1px 44px),
+          repeating-linear-gradient(0deg, rgb(var(--lumos-land-teal) / 0.045) 0 1px, transparent 1px 44px);
+      }
+      .lumos-dunya-hero__vizyon-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.55;
+        background: linear-gradient(125deg, transparent 40%, rgb(var(--lumos-land-teal) / 0.04) 52%, transparent 64%);
+      }
+      /** Sağ yarı: dünya haritası dekor — büyük başlık / alt ikon şeridi kadraj dışı; Kıbrıs hattı için cyan-altın parlama */
+      .lumos-dunya-hero__vizyon-card-map {
+        position: absolute;
+        inset: 0;
+        left: auto;
+        width: clamp(48%, 16.5rem, 56%);
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: inherit;
+        background-color: transparent;
+        background-image:
+          radial-gradient(ellipse 52% 44% at 74% 40%, rgb(var(--lumos-land-teal) / 0.34), transparent 62%),
+          radial-gradient(ellipse 34% 30% at 66% 46%, rgb(var(--lumos-land-warm) / 0.16), transparent 58%),
+          url("/lumos-world-map.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%, 100% 100%, 268% auto;
+        background-position: center, center, 58% 34%;
+        opacity: 0.52;
+        filter: saturate(1.12) contrast(1.05);
+        mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000000 44%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000000 44%);
+      }
+      @media (max-width: 879.98px) {
+        .lumos-dunya-hero__vizyon-card-map {
+          width: 100%;
+          opacity: 0.26;
+          background-size: 100% 100%, 100% 100%, 198% auto;
+          background-position: center, center, 52% 30%;
+          mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, #000000 38%, #000000 100%);
+          -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, #000000 38%, #000000 100%);
+        }
+      }
+      /** Sağ kenar: ince ızgara + diyagonal “ağ” çizgileri; çok hafif doğu Akdeniz merkez parıltısı (görsel dosyası yok) */
+      .lumos-dunya-hero__vizyon-card-deco {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: inherit;
+        background:
+          radial-gradient(circle 52px at 78% 44%, rgb(var(--lumos-land-teal) / 0.07), transparent 72%),
+          radial-gradient(circle 120px at 88% 52%, rgb(var(--lumos-land-warm) / 0.04), transparent 70%),
+          repeating-linear-gradient(
+            105deg,
+            transparent 0,
+            transparent 13px,
+            rgb(var(--lumos-land-teal) / 0.045) 13px,
+            rgb(var(--lumos-land-teal) / 0.045) 14px,
+            transparent 14px,
+            transparent 28px
+          ),
+          repeating-linear-gradient(
+            -18deg,
+            transparent 0,
+            transparent 19px,
+            rgb(var(--lumos-land-teal) / 0.038) 19px,
+            rgb(var(--lumos-land-teal) / 0.038) 20px,
+            transparent 20px,
+            transparent 40px
+          ),
+          repeating-linear-gradient(90deg, rgb(var(--lumos-land-teal) / 0.05) 0 1px, transparent 1px 22px),
+          repeating-linear-gradient(0deg, rgb(var(--lumos-land-teal) / 0.04) 0 1px, transparent 1px 22px),
+          linear-gradient(270deg, rgb(var(--lumos-land-teal) / 0.09) 0%, transparent 46%);
+        opacity: 0.38;
+        mask-image: linear-gradient(270deg, #000 0%, #000 52%, transparent 88%);
+        -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 52%, transparent 88%);
+      }
+      .lumos-dunya-hero__vizyon-card-inner {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        min-width: 0;
+      }
+      .lumos-dunya-hero__vizyon-card-icon {
+        flex-shrink: 0;
+        width: 2.65rem;
+        height: 2.65rem;
+        color: rgb(var(--lumos-land-teal) / 0.88);
+        filter: drop-shadow(0 0 10px rgb(var(--lumos-land-teal) / 0.2));
+      }
+      .lumos-dunya-hero__vizyon-card-icon svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .lumos-dunya-hero__vizyon-card-title {
+        margin: 0;
+        padding: 0 0 0.5rem;
+        font-size: clamp(1.15rem, 2.5vw, 1.38rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: var(--lumos-land-title);
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.26);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.12);
+      }
+      .lumos-dunya-hero__vizyon-card-body {
+        margin: 0;
+        font-size: clamp(0.92rem, 1.9vw, 1.02rem);
+        line-height: 1.62;
+        font-weight: 500;
+        color: var(--lumos-text-body);
+        max-width: 52ch;
+      }
+      .lumos-shell {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 clamp(0.65rem, 2vw, 1.25rem);
+      }
+      .lumos-section {
+        scroll-margin-top: 1.25rem;
+        padding: clamp(1rem, 2.5vw, 1.55rem) 0;
+      }
+      .lumos-section--tight-top {
+        padding-top: clamp(0.45rem, 1.2vw, 0.75rem);
+      }
+      .lumos-section h2 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(1.12rem, 2.4vw, 1.28rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: rgb(232 238 248 / 0.94);
+        line-height: 1.28;
+        padding-bottom: 0.45rem;
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.24);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.1);
+      }
+      .lumos-section p {
+        margin: 0 0 0.85rem;
+        font-size: 0.95rem;
+        line-height: 1.62;
+        color: var(--lumos-text-body);
+        max-width: 62ch;
+      }
+      .lumos-section p:last-child {
+        margin-bottom: 0;
+      }
+      .lumos-section ul {
+        margin: 0;
+        padding-left: 1.15rem;
+        color: var(--lumos-text-muted);
+        font-size: 0.95rem;
+        line-height: 1.58;
+        max-width: 62ch;
+      }
+      .lumos-section li {
+        margin-bottom: 0.45rem;
+      }
+      .lumos-section li:last-child {
+        margin-bottom: 0;
+      }
+      .lumos-github-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.85rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 10px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.42);
+        background: linear-gradient(165deg, rgba(18, 28, 42, 0.95) 0%, rgba(14, 18, 30, 0.92) 100%);
+        color: var(--lumos-interactive-fg);
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      }
+      .lumos-github-btn:hover,
+      .lumos-github-btn:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.65);
+        color: var(--lumos-interactive-fg-hover);
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35), 0 0 0 1px rgb(var(--lumos-land-teal) / 0.12);
+        transform: translateY(-1px);
+      }
+      .lumos-github-btn:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.55);
+        outline-offset: 3px;
+      }
+      /** İndirme ve Kurulum: kompakt adım kartları */
+      .lumos-install-section {
+        padding-top: clamp(0.35rem, 1vw, 0.55rem);
+      }
+      .lumos-install-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.62rem;
+        margin-top: 0.75rem;
+      }
+      @media (min-width: 560px) {
+        .lumos-install-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 900px) {
+        .lumos-install-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      .lumos-install-step {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0.72rem 0.82rem;
+        border-radius: 12px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.22);
+        background: linear-gradient(168deg, rgba(10, 14, 26, 0.96) 0%, rgba(8, 10, 18, 0.94) 100%);
+        box-shadow:
+          inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.06),
+          inset 0 0 0 1px rgb(var(--lumos-land-teal) / 0.06),
+          0 3px 14px rgba(0, 0, 0, 0.22);
+      }
+      .lumos-install-step h3 {
+        margin: 0 0 0.45rem;
+        font-size: 0.88rem;
+        font-weight: 650;
+        letter-spacing: -0.012em;
+        color: rgb(226 232 244 / 0.92);
+        line-height: 1.25;
+      }
+      .lumos-install-pre {
+        margin: 0;
+        padding: 0.45rem 0.5rem;
+        border-radius: 8px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.2);
+        background: rgba(4, 10, 22, 0.78);
+        font-size: 0.76rem;
+        line-height: 1.42;
+        overflow-x: auto;
+        color: rgb(186 214 236 / 0.94);
+      }
+      .lumos-install-pre code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .lumos-install-cmd {
+        display: flex;
+        flex-direction: column;
+        gap: 0.38rem;
+      }
+      .lumos-install-cmd__meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.35rem 0.5rem;
+      }
+      .lumos-install-copy-btn {
+        appearance: none;
+        margin: 0;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.7rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        padding: 0.22rem 0.48rem;
+        border-radius: 6px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.34);
+        background: rgba(5, 12, 26, 0.92);
+        color: rgb(186 214 236 / 0.92);
+        transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+      }
+      .lumos-install-copy-btn:hover,
+      .lumos-install-copy-btn:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.52);
+        color: rgb(226 232 244 / 0.95);
+        background: rgba(8, 16, 32, 0.96);
+        outline: none;
+      }
+      .lumos-install-open-link {
+        font-size: 0.7rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        padding: 0.22rem 0.48rem;
+        border-radius: 6px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.28);
+        color: rgb(var(--lumos-land-teal-deep) / 0.88);
+        background: rgba(4, 10, 22, 0.55);
+        transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+      }
+      .lumos-install-open-link:hover,
+      .lumos-install-open-link:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.48);
+        color: rgb(226 232 244 / 0.94);
+        background: rgba(8, 14, 28, 0.75);
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.35);
+        outline-offset: 2px;
+      }
+      .lumos-install-copy-disclaimer {
+        margin: 0.55rem 0 0;
+        font-size: 0.72rem;
+        line-height: 1.48;
+        color: rgb(var(--lumos-land-teal-deep) / 0.48);
+        max-width: 68ch;
+      }
+      .lumos-install-note {
+        margin: 0.75rem 0 0;
+        font-size: 0.78rem;
+        line-height: 1.52;
+        color: rgb(var(--lumos-land-teal-deep) / 0.52);
+        max-width: 62ch;
+      }
+      .lumos-install-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 0.65rem;
+        margin-top: 0.95rem;
+      }
+      .lumos-install-actions--versions {
+        margin-top: 0.85rem;
+      }
+      .lumos-install-actions .lumos-hero-btn {
+        min-height: 42px;
+        padding: 0.45rem 0.95rem;
+        font-size: 0.86rem;
+      }
+      .lumos-install-versions {
+        margin-top: 1rem;
+        padding: 0.85rem 0.95rem;
+        border-radius: 12px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.18);
+        background: linear-gradient(168deg, rgba(10, 14, 26, 0.55) 0%, rgba(8, 10, 18, 0.5) 100%);
+      }
+      .lumos-install-versions__heading {
+        margin: 0 0 0.65rem;
+        font-size: 0.95rem;
+        font-weight: 650;
+        letter-spacing: -0.012em;
+        color: rgb(226 232 244 / 0.94);
+        line-height: 1.25;
+      }
+      .lumos-install-versions__sub {
+        margin: 0;
+        padding: 0;
+      }
+      .lumos-install-versions__sub + .lumos-install-versions__sub {
+        margin-top: 0.65rem;
+        padding-top: 0.65rem;
+        border-top: 1px solid rgb(var(--lumos-land-teal) / 0.12);
+      }
+      .lumos-install-versions__sub h4 {
+        margin: 0 0 0.38rem;
+        font-size: 0.86rem;
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        color: rgb(226 232 244 / 0.9);
+        line-height: 1.28;
+      }
+      .lumos-install-versions__sub p {
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: rgb(var(--lumos-land-teal-deep) / 0.62);
+        max-width: 68ch;
+      }
+      .lumos-install-versions__footnote {
+        margin: 0.75rem 0 0;
+        font-size: 0.76rem;
+        line-height: 1.52;
+        color: rgb(var(--lumos-land-teal-deep) / 0.52);
+        max-width: 68ch;
+      }
+      .lumos-install-actions .lumos-hero-btn[disabled],
+      .lumos-install-actions .lumos-hero-btn[aria-disabled='true'] {
+        cursor: not-allowed;
+        opacity: 0.62;
+        transform: none;
+        pointer-events: none;
+      }
+      .lumos-install-soon-badge {
+        display: inline-flex;
+        align-items: center;
+        margin-inline-start: 0.4rem;
+        padding: 0.12rem 0.38rem;
+        border-radius: 6px;
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.28);
+        background: rgba(6, 12, 22, 0.75);
+        color: rgb(var(--lumos-land-teal) / 0.75);
+      }
+      /** Modüller bölümü: tam genişlik üst şerit — elektrik mavisi çizgi motifi + ince altın vurgu */
+      .lumos-modules-stack {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .lumos-modules-stack__banner {
+        width: 100vw;
+        max-width: 100%;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        height: clamp(4px, 0.55vw, 7px);
+        box-sizing: border-box;
+        border: 0;
+        border-bottom: 1px solid rgb(var(--lumos-land-warm) / 0.16);
+        background:
+          linear-gradient(90deg, transparent 0%, rgb(var(--lumos-land-warm) / 0.08) 50%, transparent 100%),
+          repeating-linear-gradient(
+            -75deg,
+            transparent 0,
+            transparent 7px,
+            rgb(var(--lumos-land-teal) / 0.09) 7px,
+            rgb(var(--lumos-land-teal) / 0.09) 8px,
+            transparent 8px,
+            transparent 15px
+          ),
+          linear-gradient(180deg, rgb(var(--lumos-land-teal) / 0.06) 0%, transparent 100%);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-teal) / 0.08);
+        opacity: 0.95;
+        pointer-events: none;
+      }
+      .lumos-section--dunya-vizyon {
+        scroll-margin-top: 1.25rem;
+        margin-top: clamp(0.85rem, 2.4vw, 1.65rem);
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        isolation: isolate;
+      }
+      .lumos-dunya-vizyon-card {
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        margin: 0;
+        padding: clamp(1.35rem, 3vw, 2rem) clamp(1.15rem, 2.6vw, 1.75rem);
+        border-radius: 16px;
+        background: var(--lumos-vizyon-card-bg);
+        border: 1px solid var(--lumos-vizyon-card-border);
+        outline: 1px solid var(--lumos-vizyon-card-border-gold);
+        outline-offset: 3px;
+        box-shadow:
+          inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.05),
+          inset 0 0 48px rgba(0, 0, 0, 0.22),
+          0 10px 36px rgba(0, 0, 0, 0.32);
+      }
+      .lumos-dunya-vizyon__eyebrow {
+        margin: 0 0 0.65rem;
+        font-size: 0.72rem;
+        font-weight: 650;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--lumos-vizyon-eyebrow);
+      }
+      .lumos-dunya-vizyon-card > h2 {
+        margin: 0 0 0.85rem;
+        padding: 0 0 0.55rem;
+        font-size: clamp(1.2rem, 2.6vw, 1.42rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--lumos-land-title);
+        line-height: 1.22;
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.22);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.1);
+      }
+      .lumos-dunya-vizyon__lead {
+        margin: 0 0 1.1rem;
+        max-width: 58ch;
+        font-size: clamp(1rem, 2.1vw, 1.12rem);
+        font-weight: 600;
+        line-height: 1.55;
+        color: var(--lumos-text-body);
+      }
+      .lumos-dunya-vizyon__prose {
+        margin: 0;
+        max-width: 60ch;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--lumos-text-muted, #c5cad6);
+      }
+      .lumos-cap {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0.35rem clamp(0.65rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 2rem);
+      }
+      .lumos-cap-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.1rem 1.2rem;
+      }
+      @media (min-width: 640px) {
+        .lumos-cap-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1.15rem 1.25rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lumos-cap-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 1.2rem 1.3rem;
+        }
+      }
+      .lumos-cap-card {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 1rem 1.05rem;
+        border-radius: 14px;
+        border: 1px solid rgb(var(--lumos-land-warm-deep) / 0.22);
+        background: linear-gradient(
+          168deg,
+          rgba(9, 11, 18, 0.97) 0%,
+          rgba(11, 10, 14, 0.94) 48%,
+          rgba(10, 9, 12, 0.96) 100%
+        );
+        box-shadow: inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.05), 0 4px 18px rgba(0, 0, 0, 0.28);
+      }
+      .lumos-cap-card-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .lumos-cap-card-link:hover,
+      .lumos-cap-card-link:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.42);
+        box-shadow:
+          inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.05),
+          0 8px 26px rgba(0, 0, 0, 0.36),
+          0 0 0 1px rgb(var(--lumos-land-teal) / 0.45),
+          0 0 0 2px rgb(var(--lumos-land-teal-deep) / 0.22);
+        transform: translateY(-2px);
+      }
+      .lumos-cap-card-link:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.55);
+        outline-offset: 3px;
+      }
+      .lumos-cap-card-link:focus:not(:focus-visible) {
+        outline: none;
+      }
+      .lumos-cap-card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.28rem;
+        margin-top: 0.55rem;
+        font-size: 0.76rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: rgb(var(--lumos-land-teal-deep) / 0.5);
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+      .lumos-cap-card-cta::after {
+        content: "→";
+        font-size: 0.85em;
+        transform: translateX(0);
+        transition: transform 0.2s ease;
+      }
+      .lumos-cap-card-link:hover .lumos-cap-card-cta,
+      .lumos-cap-card-link:focus-visible .lumos-cap-card-cta {
+        color: var(--lumos-accent-blue-bright);
+      }
+      .lumos-cap-card-link:hover .lumos-cap-card-cta::after,
+      .lumos-cap-card-link:focus-visible .lumos-cap-card-cta::after {
+        transform: translateX(3px);
+      }
+      .lumos-cap-card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: var(--lumos-land-title);
+        line-height: 1.28;
+      }
+      .lumos-cap-card p {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.62;
+        color: var(--lumos-text-muted);
+      }
+      .lumos-cap-title {
+        margin: 0 0 0.95rem;
+        padding-bottom: 0.45rem;
+        font-size: clamp(1.12rem, 2.4vw, 1.28rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: rgb(232 238 248 / 0.94);
+        line-height: 1.28;
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.22);
+        box-shadow: 0 1px 0 rgb(var(--lumos-land-warm-deep) / 0.1);
+      }
+      .lumos-cap-title--follow {
+        margin-top: clamp(1.25rem, 3vw, 2rem);
+      }
+      .lumos-cap-deck {
+        margin: -0.35rem 0 1.1rem;
+        max-width: 62ch;
+        font-size: 0.92rem;
+        line-height: 1.58;
+        color: rgb(174 182 200 / 0.88);
+      }
+      /** Kapsam modülleri: sade kart ızgarası — CTA yok, vitrin gürültüsü yok */
+      .lumos-scope-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.72rem;
+      }
+      @media (min-width: 520px) {
+        .lumos-scope-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 900px) {
+        .lumos-scope-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1200px) {
+        .lumos-scope-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+      .lumos-scope-card {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0.88rem 0.95rem;
+        border-radius: 12px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.22);
+        background: linear-gradient(168deg, rgba(10, 14, 26, 0.96) 0%, rgba(8, 10, 18, 0.94) 100%);
+        box-shadow:
+          inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.06),
+          inset 0 0 0 1px rgb(var(--lumos-land-teal) / 0.06),
+          0 3px 14px rgba(0, 0, 0, 0.22);
+      }
+      /** Lumos Modülleri: yalnızca kapsam kartı ikon sarmalayıcı + SVG — neon/cyan + kontrollü altın halo */
+      .lumos-scope-card__icon {
+        position: relative;
+        isolation: isolate;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.72rem;
+        height: 2.72rem;
+        color: rgb(120 228 255 / 0.98);
+        filter: drop-shadow(0 0 1px rgb(56 206 255 / 0.55)) drop-shadow(0 0 14px rgb(56 206 255 / 0.42))
+          drop-shadow(0 0 26px rgb(56 206 255 / 0.18));
+      }
+      .lumos-scope-card__icon::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        z-index: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 50% 38%, rgb(56 206 255 / 0.32) 0%, rgb(56 206 255 / 0.08) 52%, transparent 72%),
+          radial-gradient(circle at 50% 50%, rgb(198 166 106 / 0.12) 0%, transparent 58%);
+        box-shadow:
+          inset 0 0 0 1px rgb(56 206 255 / 0.28),
+          inset 0 0 22px rgb(56 206 255 / 0.12),
+          0 0 0 1px rgb(198 166 106 / 0.14),
+          0 0 28px rgb(56 206 255 / 0.2),
+          0 0 48px rgb(56 206 255 / 0.08);
+      }
+      .lumos-scope-card__icon svg {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 78%;
+        height: 78%;
+      }
+      .lumos-scope-card__icon svg .lumos-mod-ico__stroke {
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .lumos-scope-card__icon svg .lumos-mod-ico__fill-cyan {
+        fill: rgb(56 206 255 / 0.22);
+        stroke: currentColor;
+        stroke-width: 1.85;
+        stroke-linejoin: round;
+      }
+      .lumos-scope-card__icon svg .lumos-mod-ico__gold {
+        stroke: rgb(198 166 106 / 0.95);
+        fill: rgb(198 166 106 / 0.92);
+      }
+      .lumos-scope-card__icon svg .lumos-mod-ico__gold-stroke {
+        stroke: rgb(198 166 106 / 0.95);
+        fill: none;
+        stroke-width: 1.85;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .lumos-scope-card h3 {
+        margin: 0 0 0.42rem;
+        font-size: 0.98rem;
+        font-weight: 650;
+        letter-spacing: -0.012em;
+        color: rgb(226 232 244 / 0.92);
+        line-height: 1.25;
+      }
+      .lumos-scope-card p {
+        margin: 0;
+        font-size: 0.86rem;
+        line-height: 1.55;
+        color: var(--lumos-text-muted);
+      }
+      a.lumos-scope-card-link {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.42rem;
+        box-sizing: border-box;
+        margin: 0;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      a.lumos-scope-card-link:hover,
+      a.lumos-scope-card-link:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.38);
+        box-shadow:
+          inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.05),
+          0 6px 22px rgba(0, 0, 0, 0.32),
+          0 0 0 1px rgb(var(--lumos-land-teal) / 0.35);
+        transform: translateY(-2px);
+      }
+      a.lumos-scope-card-link:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.55);
+        outline-offset: 3px;
+      }
+      .lumos-modul-back {
+        display: inline-block;
+        margin-top: 0.72rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: rgb(var(--lumos-land-teal) / 0.88);
+        text-decoration: none;
+        border-bottom: 1px solid rgb(var(--lumos-land-teal) / 0.3);
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .lumos-modul-back:hover,
+      .lumos-modul-back:focus-visible {
+        color: var(--lumos-interactive-fg-hover);
+        border-bottom-color: rgb(var(--lumos-land-teal) / 0.52);
+      }
+      .lumos-modul-back:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.45);
+        outline-offset: 2px;
+      }
+      .lumos-modules {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 clamp(0.65rem, 2vw, 1.25rem) clamp(1.2rem, 3vw, 2rem);
+      }
+      .lumos-modules-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      @media (min-width: 920px) {
+        .lumos-modules-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      .lumos-module-item {
+        scroll-margin-top: 1.25rem;
+        padding: 0.85rem 0.95rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(165deg, rgba(11, 16, 32, 0.96) 0%, rgba(13, 13, 18, 0.95) 100%);
+      }
+      .lumos-module-item h3 {
+        margin: 0 0 0.35rem;
+        font-size: 1.02rem;
+        font-weight: 600;
+        color: rgb(226 232 244 / 0.92);
+        letter-spacing: -0.015em;
+      }
+      .lumos-module-item p {
+        margin: 0;
+        font-size: 0.89rem;
+        line-height: 1.58;
+        color: var(--lumos-text-muted);
+      }
+      .lumos-module-item--world-slot {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        border-color: rgb(var(--lumos-land-teal) / 0.16);
+      }
+      .lumos-module-item--world-slot::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+        background:
+          radial-gradient(ellipse 62% 54% at 57% 33%, rgb(var(--lumos-land-teal) / 0.1), transparent 60%),
+          repeating-linear-gradient(90deg, rgb(var(--lumos-land-teal) / 0.028) 0 1px, transparent 1px 36px),
+          repeating-linear-gradient(0deg, rgb(var(--lumos-land-teal) / 0.022) 0 1px, transparent 1px 36px);
+      }
+      .lumos-module-item--world-slot > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .lumos-may19-card {
+        box-sizing: border-box;
+        margin: 0 0 clamp(0.85rem, 2vw, 1.15rem);
+        padding: clamp(0.85rem, 2vw, 1.05rem) clamp(0.95rem, 2.2vw, 1.15rem);
+        border-radius: 12px;
+        border: 1px solid rgb(var(--lumos-land-warm-deep) / 0.26);
+        background: linear-gradient(
+          168deg,
+          rgba(12, 14, 22, 0.92) 0%,
+          rgba(10, 11, 18, 0.88) 100%
+        );
+        box-shadow: inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.05), 0 2px 12px rgba(0, 0, 0, 0.22);
+      }
+      .lumos-may19-card h2 {
+        margin: 0 0 0.45rem;
+        padding: 0;
+        border: none;
+        font-size: clamp(0.92rem, 2vw, 1.02rem);
+        font-weight: 650;
+        letter-spacing: -0.015em;
+        color: rgb(var(--lumos-land-warm) / 0.9);
+        line-height: 1.3;
+      }
+      .lumos-may19-card p {
+        margin: 0 0 0.5rem;
+        max-width: 58ch;
+        font-size: 0.88rem;
+        line-height: 1.58;
+        color: var(--lumos-text-muted);
+      }
+      .lumos-may19-card p:last-of-type {
+        margin-bottom: 0;
+      }
+      .lumos-may19-card__caption {
+        display: block;
+        margin: 0.55rem 0 0.65rem;
+        max-width: 58ch;
+        font-size: 0.76rem;
+        line-height: 1.5;
+        color: rgb(var(--lumos-land-teal-deep) / 0.55);
+      }
+      .lumos-may19-card__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .lumos-may19-open-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: 1px solid rgb(var(--lumos-land-teal) / 0.38);
+        background: linear-gradient(165deg, rgba(14, 20, 32, 0.92) 0%, rgba(12, 14, 24, 0.88) 100%);
+        color: var(--lumos-interactive-fg);
+        font-size: 0.84rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+      }
+      .lumos-may19-open-btn:hover,
+      .lumos-may19-open-btn:focus-visible {
+        border-color: rgb(var(--lumos-land-teal) / 0.58);
+        color: var(--lumos-interactive-fg-hover);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28), 0 0 0 1px rgb(var(--lumos-land-teal) / 0.1);
+      }
+      .lumos-may19-open-btn:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.5);
+        outline-offset: 3px;
+      }
+
+      .lumos-may19-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(0.75rem, 3vw, 1.25rem);
+        box-sizing: border-box;
+      }
+      .lumos-may19-overlay.is-open {
+        display: flex;
+      }
+      .lumos-may19-overlay__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(5, 8, 16, 0.72);
+        backdrop-filter: blur(3px);
+      }
+      .lumos-may19-overlay__panel {
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        width: min(100%, 380px);
+        max-height: min(88vh, 520px);
+        overflow: auto;
+        padding: clamp(1.1rem, 3vw, 1.45rem);
+        border-radius: 14px;
+        border: 1px solid rgb(var(--lumos-land-warm-deep) / 0.38);
+        background: linear-gradient(
+          165deg,
+          #0f121c 0%,
+          #121018 48%,
+          #0d0f16 100%
+        );
+        box-shadow: inset 0 1px 0 rgb(var(--lumos-land-warm) / 0.08), 0 16px 48px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgb(var(--lumos-land-teal-deep) / 0.28);
+        text-align: center;
+      }
+      .lumos-may19-overlay__text {
+        margin: 0 0 1rem;
+        font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+        line-height: 1.55;
+        font-weight: 500;
+        color: var(--lumos-text-body);
+      }
+      .lumos-may19-overlay__count {
+        margin: 0 0 1.15rem;
+        font-size: clamp(3rem, 14vw, 4.25rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: rgb(var(--lumos-land-warm) / 0.95);
+        text-shadow: 0 0 20px rgb(var(--lumos-land-warm) / 0.15);
+        font-variant-numeric: tabular-nums;
+      }
+      .lumos-may19-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        min-width: 7rem;
+        padding: 0.5rem 1.15rem;
+        border-radius: 10px;
+        border: 1px solid rgb(var(--lumos-land-warm-deep) / 0.32);
+        background: rgba(12, 14, 22, 0.85);
+        color: var(--lumos-land-title);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .lumos-may19-close-btn:hover,
+      .lumos-may19-close-btn:focus-visible {
+        border-color: rgb(var(--lumos-land-warm) / 0.55);
+        background: rgba(18, 16, 24, 0.92);
+      }
+      .lumos-may19-close-btn:focus-visible {
+        outline: 2px solid rgb(var(--lumos-land-teal) / 0.45);
+        outline-offset: 3px;
+      }
+      .lumos-section--founder p {
+        max-width: 68ch;
+      }
+      .lumos-founder-signblock {
+        margin: 1.35rem 0 0;
+        max-width: 62ch;
+      }
+      .lumos-founder-name {
+        margin: 0;
+        font-size: 0.95rem;
+        font-style: normal;
+        font-weight: 600;
+        color: rgb(var(--lumos-land-warm) / 0.82);
+      }
+      .lumos-founder-meta {
+        margin: 0.35rem 0 0;
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        color: var(--lumos-text-muted);
+      }
+      .lumos-may19-card--sideline {
+        margin-top: clamp(0.35rem, 1.2vw, 0.65rem);
+      }
+      .lumos-may19-card h2.lumos-may19-card__heading--inline {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.65rem;
+        margin: 0 0 0.65rem;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        font-size: clamp(1.02rem, 2.2vw, 1.14rem);
+        font-weight: 650;
+        letter-spacing: -0.015em;
+        color: rgb(var(--lumos-land-warm) / 0.9);
+        line-height: 1.3;
+      }
+      .lumos-may19-card__flag-badges {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.32rem;
+        flex-shrink: 0;
+      }
+      .lumos-may19-card__flag-badge {
+        display: block;
+        width: 1.38rem;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        border-radius: 2px;
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.14),
+          0 1px 3px rgba(0, 0, 0, 0.35);
+      }
+      .lumos-may19-card--sideline p {
+        font-size: 0.875rem;
+        line-height: 1.58;
+        color: var(--lumos-text-muted);
+        max-width: 62ch;
+      }
+
+      /**
+       * Küçük ekran cilası: yalnızca max-width ile; masaüstü (≥768px) aynı kalır.
+       */
+      @media (max-width: 767.98px) {
+        html {
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+          overflow-x: hidden;
+          max-width: 100%;
+        }
+        body.lumos-landing {
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+          overflow-x: hidden;
+          max-width: 100%;
+        }
+        .lumos-site-nav {
+          position: relative;
+          z-index: 8;
+          isolation: isolate;
+          margin: 0 0 clamp(0.45rem, 1.4vw, 0.72rem);
+          padding-bottom: clamp(0.35rem, 1vw, 0.55rem);
+        }
+        .lumos-site-nav__bar {
+          flex-wrap: nowrap;
+          align-items: center;
+          gap: 0.32rem;
+          min-width: 0;
+        }
+        .lumos-site-nav__brand-left {
+          flex-shrink: 0;
+        }
+        .lumos-site-nav__list {
+          flex-wrap: nowrap;
+          gap: 0.2rem 0.38rem;
+          overflow-x: auto;
+          overflow-y: hidden;
+          overscroll-behavior-x: contain;
+          min-width: 0;
+          flex: 1 1 auto;
+          padding-bottom: 3px;
+        }
+        .lumos-site-nav__corner {
+          flex-shrink: 0;
+          align-self: center;
+        }
+        .lumos-site-nav__link {
+          padding: 0.26rem 0.38rem;
+          font-size: clamp(0.66rem, 2.05vw, 0.78rem);
+        }
+        .lumos-site-nav__logo {
+          min-width: 40px;
+          min-height: 40px;
+          padding: 0.22rem 0.26rem;
+        }
+        .lumos-site-nav__logo .lumos-logo-mark {
+          width: 1.32rem;
+          height: 1.32rem;
+        }
+        .lumos-hero-cinematic__inner {
+          padding-top: clamp(0.45rem, 1.4vw, 0.72rem);
+          padding-bottom: clamp(0.85rem, 2.4vw, 1.35rem);
+        }
+        .lumos-hero-copy {
+          min-width: 0;
+        }
+        .lumos-hero-title-page {
+          font-size: clamp(1.52rem, 6.5vw, 2.35rem);
+        }
+        .lumos-hero-title-page--manifesto {
+          font-size: clamp(1.05rem, 4.1vw, 1.48rem);
+          line-height: 1.16;
+        }
+        .lumos-hero-subtitle {
+          margin: 0 0 0.75rem;
+          font-size: clamp(0.86rem, 2.2vw, 1.1rem);
+        }
+        .lumos-hero-pillar {
+          margin: 0 0 0.65rem;
+          font-size: clamp(0.72rem, 1.65vw, 0.88rem);
+          letter-spacing: 0.035em;
+        }
+        .lumos-hero-lead {
+          margin: 0 0 1rem;
+          font-size: clamp(0.8rem, 1.7vw, 0.93rem);
+        }
+        .lumos-hero-scene {
+          min-height: clamp(200px, 52vw, 360px);
+        }
+        .lumos-hero-scene__img {
+          max-height: clamp(180px, min(60vw, 46vh), 360px);
+        }
+        .lumos-shell {
+          padding: 0 clamp(0.5rem, 3.6vw, 1rem);
+        }
+        .lumos-modules-stack__banner {
+          width: 100%;
+          max-width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        body.lumos-landing .lumos-site-nav .lumos-m19g--dock-header .lumos-m19g__panel {
+          max-width: min(19rem, calc(100vw - 1.25rem));
+        }
+        .lumos-section {
+          padding: clamp(0.7rem, 2vw, 1.12rem) 0;
+        }
+        .lumos-section--tight-top {
+          padding-top: clamp(0.32rem, 1vw, 0.55rem);
+        }
+        #top.lumos-section--tight-top {
+          padding-top: 0;
+        }
+        .lumos-dunya-hero {
+          padding-top: clamp(0.35rem, 1.1vw, 0.65rem);
+          padding-bottom: clamp(0.85rem, 2.2vw, 1.35rem);
+        }
+        .lumos-dunya-hero__grid {
+          gap: clamp(0.85rem, 2.2vw, 1.35rem);
+        }
+        .lumos-dunya-hero h2 {
+          font-size: clamp(1.45rem, 3.4vw, 1.95rem);
+        }
+        .lumos-dunya-hero__copy > p {
+          font-size: 0.9rem;
+        }
+        .lumos-section h2 {
+          font-size: clamp(1.02rem, 2.15vw, 1.18rem);
+        }
+        .lumos-section p,
+        .lumos-section ul {
+          font-size: 0.9rem;
+        }
+        .lumos-cap {
+          padding: 0.28rem clamp(0.5rem, 3.6vw, 1rem) clamp(0.95rem, 2.6vw, 1.55rem);
+        }
+        .lumos-cap-title {
+          font-size: clamp(1.02rem, 2.15vw, 1.18rem);
+          margin: 0 0 0.72rem;
+        }
+        .lumos-cap-deck {
+          font-size: 0.86rem;
+          margin: -0.28rem 0 0.85rem;
+        }
+        .lumos-scope-card {
+          padding: 0.75rem 0.82rem;
+        }
+        .lumos-scope-card h3 {
+          font-size: 0.93rem;
+        }
+        .lumos-scope-card p {
+          font-size: 0.82rem;
+        }
+        .lumos-modules {
+          padding: 0 clamp(0.5rem, 3.6vw, 1rem) clamp(0.95rem, 2.5vw, 1.55rem);
+        }
+        .lumos-module-item {
+          padding: 0.72rem 0.82rem;
+        }
+        .lumos-module-item h3 {
+          font-size: 0.96rem;
+        }
+        .lumos-module-item p {
+          font-size: 0.85rem;
+        }
+        .lumos-dunya-vizyon-card {
+          padding: clamp(1rem, 2.6vw, 1.55rem) clamp(0.85rem, 2.2vw, 1.35rem);
+        }
+        .lumos-dunya-vizyon-card > h2 {
+          font-size: clamp(1.08rem, 2.35vw, 1.28rem);
+        }
+        .lumos-dunya-vizyon__lead {
+          font-size: clamp(0.92rem, 1.95vw, 1.02rem);
+        }
+        .lumos-dunya-vizyon__prose {
+          font-size: 0.9rem;
+        }
+        /** iOS Safari: odak yakınlaştırmasını azaltmak için form metni en az 16px. */
+        body.lumos-landing input,
+        body.lumos-landing textarea,
+        body.lumos-landing select {
+          font-size: max(16px, 1em);
+        }
+        body.lumos-landing input:focus,
+        body.lumos-landing textarea:focus,
+        body.lumos-landing select:focus {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="lumos-landing">
+    <section id="top" class="lumos-section lumos-section--tight-top" aria-labelledby="lumos-giris-baslik">
+      <div class="lumos-shell lumos-hero-cinematic__inner">
+        <nav class="lumos-site-nav lumos-site-nav--sticky" aria-label="Sayfa içi gezinme">
+          <div class="lumos-site-nav__bar">
+            <div class="lumos-site-nav__brand-left">
+              <a class="lumos-site-nav__logo lumos-site-nav__brand" href="#top" aria-label="Lumos — sayfa başı">
+                <img
+                  class="lumos-logo-mark"
+                  src="/lumos-tree-logo.svg"
+                  alt=""
+                  width="64"
+                  height="64"
+                  decoding="async"
+                />
+                <span class="lumos-site-nav__brand-text">
+                  <span class="lumos-site-nav__brand-title">Lumos</span>
+                  <span class="lumos-site-nav__brand-sub">WE LOCK AI</span>
+                </span>
+              </a>
+            </div>
+            <ul class="lumos-site-nav__list">
+              <li>
+                <a class="lumos-site-nav__link" href="#dunya">Dünya</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#neden-lumos">Neden Lumos?</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#moduller">Modüller</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#gelistirici">Geliştirici</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#kurulum">Kurulum</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link lumos-site-nav__link--accent" href="/panel">Panel</a>
+              </li>
+              <li>
+                <a
+                  class="lumos-site-nav__link"
+                  href={GITHUB_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer">GitHub</a>
+              </li>
+            </ul>
+            <div class="lumos-site-nav__corner">
+              <GlobalMay19Corner />
+            </div>
+          </div>
+        </nav>
+        <div class="lumos-hero-layout">
+          <div class="lumos-hero-copy">
+            <p class="lumos-hero-eyebrow">WE LOCK AI · LUMOS</p>
+            <div class="lumos-hero-title-lockup">
+              <img
+                class="lumos-logo-mark lumos-hero-title-mark"
+                src="/lumos-tree-logo.svg"
+                alt=""
+                width="64"
+                height="64"
+                decoding="async"
+              />
+              <h1 id="lumos-giris-baslik" class="lumos-hero-title-page">Lumos</h1>
+            </div>
+            <p class="lumos-hero-subtitle">Yapay zekâ kontrol katmanı</p>
+            <p class="lumos-hero-lead">
+              Ses, medya, görsel analiz, görevler, dosyalar, kimlik ve güvenlik akışlarını tek panelde birleştiren akıllı asistan altyapısı.
+            </p>
+            <p class="lumos-hero-lead">
+              Karar kullanıcıda kalır. Lumos riski, bağlamı ve sonraki adımı görünür kılar.
+            </p>
+            <p class="lumos-hero-pillar">Tek panel · Çoklu akış · Kullanıcı kontrolü</p>
+            <div class="lumos-hero-actions">
+              <a class="lumos-hero-btn lumos-hero-btn--primary" href="/panel">Lumos Panel’e Git</a>
+              <a class="lumos-hero-btn lumos-hero-btn--ghost" href="#dunya">Dünyayı Keşfet</a>
+            </div>
+          </div>
+          <div class="lumos-hero-scene" aria-hidden="true">
+            <img
+              class="lumos-hero-scene__img"
+              src="/lumos-hero-ata-scene.png"
+              alt=""
+              width="900"
+              height="448"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+        <div class="lumos-hero-ask-band">
+          <form class="lumos-hero-ask" id="lumos-hero-ask" action="/panel" method="get" autocomplete="off" aria-label="Lumos’a sor">
+            <input
+              class="lumos-hero-ask__field"
+              id="lumos-hero-ask-input"
+              type="text"
+              inputmode="text"
+              placeholder="Lumos’a sor: “Bir görevi güvenli adımlara ayır…”"
+            />
+            <button class="lumos-hero-ask__submit" type="submit">Sor</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="ilkeler" class="lumos-shell lumos-section lumos-section--post-hero" aria-labelledby="temel-ilkeler-baslik">
+      <h2 id="temel-ilkeler-baslik" class="lumos-cap-title">Temel ilkeler</h2>
+      <div class="lumos-cap-grid">
+        <a class="lumos-cap-card-link" href="#ilkeler">
+          <article class="lumos-cap-card">
+            <h3>Kullanıcı Kontrolü</h3>
+            <p>Nihai seçim her zaman sizdedir; Lumos yerine geçmez.</p>
+          </article>
+        </a>
+        <a class="lumos-cap-card-link" href="#ilkeler">
+          <article class="lumos-cap-card">
+            <h3>Risk Görünürlüğü</h3>
+            <p>Olası sonuçlar ve yan etkiler özetlenerek gösterilir.</p>
+          </article>
+        </a>
+        <a class="lumos-cap-card-link" href="#ilkeler">
+          <article class="lumos-cap-card">
+            <h3>Veri Farkındalığı</h3>
+            <p>Verinin nerede işlendiği ve hangi sınırların geçerli olduğu okunur biçimde sunulur.</p>
+          </article>
+        </a>
+        <a class="lumos-cap-card-link" href="#ilkeler">
+          <article class="lumos-cap-card">
+            <h3>Açık Onay İlkesi</h3>
+            <p>Kalıcı veya riskli adımlarda net, geri alınabilir onay akışları.</p>
+          </article>
+        </a>
+      </div>
+      <h2 id="ilkeler-baslik" class="lumos-cap-title lumos-cap-title--follow">Çalışma ilkeleri</h2>
+      <p>
+        We Lock AI çatısındaki Lumos; hız uğruna şeffaflığı feda etmeden, aşağıdaki dört eksende tutarlı kalmayı
+        hedefler.
+      </p>
+      <ul>
+        <li><strong>Kullanıcı kararı:</strong> Nihai seçim her zaman sizdedir; Lumos yerine geçmez.</li>
+        <li><strong>Açık onay:</strong> Kalıcı veya riskli adımlarda net, geri alınabilir onay akışları.</li>
+        <li><strong>Risk görünürlüğü:</strong> Olası sonuçlar ve yan etkiler özetlenerek gösterilir.</li>
+        <li><strong>Veri farkındalığı:</strong> Verinin nerede işlendiği ve hangi sınırların geçerli olduğu okunur biçimde sunulur.</li>
+      </ul>
+    </section>
+
+    <section
+      id="dunya"
+      class="lumos-shell lumos-section lumos-dunya-hero"
+      aria-labelledby="lumos-dunya-hero-heading"
+    >
+      <div class="lumos-dunya-hero__grid">
+        <div class="lumos-dunya-hero__copy">
+          <h2 id="lumos-dunya-hero-heading">Dünya</h2>
+          <p>
+            Lumos; dil, bölge ve erişilebilirlik farklarını gözeterek arayüz ve akışların geniş bir kullanıcı yelpazesine
+            uyumunu hedefler. Yandaki kart, “dünya” modülünün tek bir küçük simgeyle değil; insani ölçekte bir vizyonla
+            bağlanmasını vurgular.
+          </p>
+          <p class="lumos-dunya-hero__meta">
+            <a class="lumos-dunya-hero__link" href="#dunya-vizyon">Dünya vizyonu</a>
+            <span class="lumos-dunya-hero__sep" aria-hidden="true">·</span>
+            <a class="lumos-dunya-hero__link lumos-dunya-hero__link--subtle" href="#moduller">Modül ızgarası</a>
+          </p>
+        </div>
+        <div
+          class="lumos-dunya-hero__vizyon-card"
+          role="complementary"
+          aria-labelledby="lumos-dunya-hero-vizyon-card-title"
+        >
+          <div class="lumos-dunya-hero__vizyon-card-map" aria-hidden="true"></div>
+          <div class="lumos-dunya-hero__vizyon-card-deco" aria-hidden="true"></div>
+          <div class="lumos-dunya-hero__vizyon-card-inner">
+            <div class="lumos-dunya-hero__vizyon-card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.25" />
+                <ellipse cx="24" cy="24" rx="15" ry="5.5" stroke="currentColor" stroke-opacity="0.28" stroke-width="1" />
+                <path
+                  d="M9 24h30M24 9c-4 5.2-6 10.1-6 15s2 9.8 6 15c4-5.2 6-10.1 6-15s-2-9.8-6-15Z"
+                  stroke="currentColor"
+                  stroke-opacity="0.32"
+                  stroke-width="1"
+                />
+                <circle cx="24" cy="14" r="2.25" fill="rgb(198 166 106 / 0.9)" stroke="currentColor" stroke-width="0.75" />
+                <circle cx="34" cy="28" r="2" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="0.75" />
+                <circle cx="14" cy="30" r="2" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="0.75" />
+                <path
+                  d="M24 16.25L33.5 27M24 16.25 14.5 28"
+                  stroke="currentColor"
+                  stroke-opacity="0.5"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3 id="lumos-dunya-hero-vizyon-card-title" class="lumos-dunya-hero__vizyon-card-title">Dünya vizyonu</h3>
+            <p class="lumos-dunya-hero__vizyon-card-body">
+              Kıbrıs’tan başlayan akıllı ses, medya ve yapay zekâ ağı; insan merkezli kontrol anlayışıyla dünyaya açılır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="lumos-shell">
+      <section id="neden-lumos" class="lumos-section lumos-section--founder" aria-labelledby="neden-lumos-baslik">
+        <h2 id="neden-lumos-baslik">Neden Lumos?</h2>
+        <p>Lumos’u, insanın teknoloji karşısında kontrolünü kaybetmemesi gerektiği düşüncesiyle tasarlıyorum.</p>
+        <p>
+          Bugün yapay zekâ artık uzak bir konu değil. Yazdığımız metne, aldığımız karara, kullandığımız uygulamaya ve günlük
+          işlerimize kadar giriyor. Bu büyük bir güç. Ama bu güç büyüdükçe, insanın neye onay verdiğini, hangi bilginin
+          nereye gittiğini ve hangi kararın nasıl alındığını görebilmesi daha da önemli hale geliyor.
+        </p>
+        <p>
+          Ben Lumos’u insanın yerine karar veren bir sistem olarak değil; kullanıcının aklını, bilincini ve iradesini
+          güçlendiren bir yardımcı katman olarak görüyorum.
+        </p>
+        <p>
+          Lumos’un amacı yolu kısaltmak, karmaşayı azaltmak ve seçenekleri daha görünür hale getirmek. Ama son karar
+          kullanıcıda kalmalı. Özellikle geri dönüşü zor, kalıcı veya riskli işlemlerde kullanıcı ne olduğunu bilmeli,
+          sonucu görebilmeli ve kendi kararını kendisi vermeli.
+        </p>
+        <p>
+          Lumos aktif geliştirilen bir kontrol katmanıdır; modüller aşamalı olarak genişler. Yön net: Lumos kullanıcının
+          üstünde değil yanında durur; yerine geçmez, birlikte çalışır.
+        </p>
+        <p>
+          Benim için Lumos, sadece bir yazılım fikri değil. İnsanla teknoloji arasındaki ilişkiyi daha dürüst, daha kontrollü
+          ve daha insani kurma çabasının adı.
+        </p>
+      </section>
+
+      <aside class="lumos-may19-card lumos-may19-card--sideline" aria-labelledby="lumos-may19-heading">
+        <h2 id="lumos-may19-heading" class="lumos-may19-card__heading--inline">
+          <span class="lumos-may19-card__flag-badges" aria-hidden="true">
+            <img
+              class="lumos-may19-card__flag-badge"
+              src="/assets/flags/tr.svg"
+              alt=""
+              width="24"
+              height="16"
+              decoding="async"
+            />
+            <img
+              class="lumos-may19-card__flag-badge"
+              src="/assets/flags/kktc.svg"
+              alt=""
+              width="24"
+              height="16"
+              decoding="async"
+            />
+          </span>
+          <span>19 Mayıs’a Saygıyla</span>
+        </h2>
+        <p>
+          Bu metni 19 Mayıs gibi anlamlı bir güne yakın yayımlamak benim için ayrıca değerli.
+        </p>
+        <p>
+          Gazi Mustafa Kemal Atatürk’ü saygıyla anıyor, 19 Mayıs Atatürk’ü Anma, Gençlik ve Spor Bayramı’nı kutluyorum.
+        </p>
+        <p>
+          19 Mayıs’ın taşıdığı gençlik, bilim, bağımsız düşünce ve gelecek fikrini yalnızca bir ülkenin sınırları içinde
+          değil, insanlık için de değerli bir hatırlatma olarak görüyorum.
+        </p>
+        <p>
+          Lumos’u da bu anlayışla; geleceği kuracak gençlere ve teknolojiyi insan yararına kullanmak isteyen herkese küçük
+          ama samimi bir armağan olarak görüyorum.
+        </p>
+        <div class="lumos-may19-card__actions">
+          <button type="button" class="lumos-may19-open-btn" id="lumos-may19-open">
+            Saygı anını başlat
+          </button>
+        </div>
+      </aside>
+
+      <section id="lumos-nedir" class="lumos-section" aria-labelledby="lumos-nedir-baslik">
+        <h2 id="lumos-nedir-baslik">Lumos nedir?</h2>
+        <p>
+          Lumos; sesli komutlar, medya işlemleri ve yapay zekâ destekli yardımları yerelde veya sizin tanımladığınız
+          güven sınırları içinde tek bir akışta toparlamayı hedefleyen bir kontrol katmanıdır. Uygulamalar, dosyalar ve
+          harici servisler arasında köprü kurarak dağınık görevleri daha izlenebilir adımlara böler.
+        </p>
+        <p>
+          Amaç, karmaşık teknik detayların arkasında kalan işlemleri sadeleştirmek; hangi verinin nerede işlendiğini ve
+          bir sonraki adımın olası sonuçlarını daha okunur kılmaktır. Lumos “otomatik pilot” değildir; kullanıcıyı
+          bilgilendiren ve onay kritik noktalarında duraklatan bir ara yüz sunmayı amaçlar.
+        </p>
+        <p>
+          Lumos aktif geliştirilen bir kontrol katmanıdır; modüller ve entegrasyonlar ölçülü biçimde genişler — vaat
+          yerine görünür yol haritası ve kullanıcı onayı önceliklidir.
+        </p>
+      </section>
+
+      <section id="ne-yapar" class="lumos-section" aria-labelledby="ne-yapar-baslik">
+        <h2 id="ne-yapar-baslik">Ne yapar?</h2>
+        <ul>
+          <li>Ses ve doğal dil ile iletilen görevleri güvenli ve izlenebilir alt adımlara ayırmayı hedefler.</li>
+          <li>Medya ve dosya akışlarını düzenler; paylaşım veya dış servise aktarımda şeffaflığı artırmayı amaçlar.</li>
+          <li>Yapay zekâ önerilerini bağlam ve risk bilgisiyle birlikte sunar; kalıcı sonuç doğuran işlemlerde onayı kullanıcıya bırakır.</li>
+          <li>Kimlik ve servis bağlantılarını daha yönetilebilir tek bir çatı altında toplamayı hedefler.</li>
+          <li>Riski yüksek veya geri alınması güç işlemlerde ek uyarı ve onay akışlarını önceliklendirir.</li>
+        </ul>
+      </section>
+
+      <section id="neden-gerekli" class="lumos-section" aria-labelledby="neden-gerekli-baslik">
+        <h2 id="neden-gerekli-baslik">Neden gerekli?</h2>
+        <p>
+          Araç ve servis sayısı arttıkça bağlam dağılıyor; kullanıcı neyin nerede çalıştığını ve hangi iznin neyi
+          etkinleştirdiğini takip etmekte zorlanabiliyor. Lumos, bu dağınıklığı tek bir kontrol katmanında görünür kılarak
+          yanlış onay ve gereksiz veri aktarımı riskini azaltmayı hedefler.
+        </p>
+      </section>
+
+      <section
+        id="dunya-vizyon"
+        class="lumos-section lumos-section--dunya-vizyon"
+        aria-labelledby="dunya-vizyon-baslik"
+      >
+        <div class="lumos-dunya-vizyon-card">
+          <p class="lumos-dunya-vizyon__eyebrow">Dünya ölçeği</p>
+          <h2 id="dunya-vizyon-baslik">Dünya ve vizyon</h2>
+          <p class="lumos-dunya-vizyon__lead">
+            Lumos’u farklı cihaz ve kullanım senaryolarında tutarlı, sade ve güvenilir bir kontrol katmanı haline getirmeyi
+            hedefliyoruz. Özellikler ölçülü ve artımlı biçimde genişleyecek; her adımda kullanıcı kontrolü ve şeffaflık ön
+            planda kalacaktır.
+          </p>
+          <p class="lumos-dunya-vizyon__prose">
+            Aynı vizyonun pratik yüzü olarak; dil, bölge ve erişilebilirlik farklarını dikkate alarak arayüz ve akışların
+            geniş bir kullanıcı yelpazesine uyumunu hedefliyoruz. Yerelleştirme, klavye ve ses erişimi gibi konularda tutarlı
+            bir çerçeve sunmak, Lumos’un “dünya” ölçeğinde insani kalması için omurgadır.
+          </p>
+        </div>
+      </section>
+
+      <section id="kazanimlar" class="lumos-section" aria-labelledby="kazanimlar-baslik">
+        <h2 id="kazanimlar-baslik">Kullanıcı ne kazanır?</h2>
+        <ul>
+          <li>Yapılan işlemler ve sıradaki adımlar hakkında daha net bir özet ve bağlam.</li>
+          <li>Verinin cihazda mı kaldığı yoksa dış servise mi aktarıldığı konusunda daha fazla şeffaflık.</li>
+          <li>Hız ile kontrol arasında daha dengeli bir çalışma düzeni.</li>
+          <li>Kalıcı veya maliyetli sonuçlar doğurabilecek işlemlerde bilinçli onay.</li>
+        </ul>
+      </section>
+
+      <section id="gelistirici" class="lumos-section" aria-labelledby="gelistirici-baslik">
+        <h2 id="gelistirici-baslik">Geliştirici erişimi</h2>
+        <p>
+          Lumos şu anda geliştirici incelemesine açık kaynak kod aşamasındadır. Son kullanıcı kurulum paketi henüz
+          yayınlanmamıştır. Geliştiriciler kaynak kodunu GitHub üzerinden inceleyebilir ve projeyi yerel ortamda
+          çalıştırabilir.
+        </p>
+        <a class="lumos-github-btn" href={GITHUB_REPO_URL} rel="noopener noreferrer">GitHub'da incele</a>
+        <p class="lumos-may19-card__caption" style="margin-top: 1.1rem; margin-bottom: 0">
+          Lumos açık ve katkıya uygun bir proje olarak geliştirilmektedir. Ancak We Lock AI çatısı altındaki Lumos ürün kimliği, görsel marka unsurları, resmi servisler, API erişimleri ve kullanıcı verileri kontrollü izin yapısıyla korunur.
+        </p>
+      </section>
+
+      <section id="kurulum" class="lumos-section lumos-install-section" aria-labelledby="kurulum-baslik">
+        <h2 id="kurulum-baslik">İndirme ve Kurulum</h2>
+        <p>
+          Lumos şu anda aktif geliştirilen açık kaynaklı bir kontrol katmanıdır. Yerelde denemek isteyen geliştiriciler kaynak kodu GitHub üzerinden indirip kendi ortamında çalıştırabilir.
+        </p>
+        <div class="lumos-install-grid">
+          <article class="lumos-install-step">
+            <h3>Adım 1 — Kaynak kodu indir</h3>
+            <div class="lumos-install-cmd">
+              <pre class="lumos-install-pre"><code>git clone {GITHUB_REPO_URL}</code></pre>
+              <div class="lumos-install-cmd__meta">
+                <button
+                  type="button"
+                  class="lumos-install-copy-btn"
+                  data-install-copy
+                  data-copy-text={"git clone " + GITHUB_REPO_URL}>Kopyala</button>
+              </div>
+            </div>
+          </article>
+          <article class="lumos-install-step">
+            <h3>Adım 2 — Proje klasörüne gir</h3>
+            <div class="lumos-install-cmd">
+              <pre class="lumos-install-pre"><code>cd lumos-core</code></pre>
+              <div class="lumos-install-cmd__meta">
+                <button type="button" class="lumos-install-copy-btn" data-install-copy data-copy-text="cd lumos-core"
+                  >Kopyala</button>
+              </div>
+            </div>
+          </article>
+          <article class="lumos-install-step">
+            <h3>Adım 3 — UI bağımlılıklarını kur</h3>
+            <div class="lumos-install-cmd">
+              <pre class="lumos-install-pre"><code>cd ui && npm install</code></pre>
+              <div class="lumos-install-cmd__meta">
+                <button
+                  type="button"
+                  class="lumos-install-copy-btn"
+                  data-install-copy
+                  data-copy-text="cd ui && npm install">Kopyala</button>
+              </div>
+            </div>
+          </article>
+          <article class="lumos-install-step">
+            <h3>Adım 4 — Yerelde çalıştır</h3>
+            <div class="lumos-install-cmd">
+              <pre class="lumos-install-pre"><code>npm run dev</code></pre>
+              <div class="lumos-install-cmd__meta">
+                <button type="button" class="lumos-install-copy-btn" data-install-copy data-copy-text="npm run dev"
+                  >Kopyala</button>
+              </div>
+            </div>
+          </article>
+          <article class="lumos-install-step">
+            <h3>Adım 5 — Tarayıcıda aç</h3>
+            <div class="lumos-install-cmd">
+              <pre class="lumos-install-pre"><code>http://localhost:4321</code></pre>
+              <div class="lumos-install-cmd__meta">
+                <button
+                  type="button"
+                  class="lumos-install-copy-btn"
+                  data-install-copy
+                  data-copy-text="http://localhost:4321">Kopyala</button>
+                <a
+                  class="lumos-install-open-link"
+                  href="http://localhost:4321"
+                  target="_blank"
+                  rel="noopener noreferrer">Aç</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="lumos-install-copy-disclaimer">
+          Bu butonlar komutları çalıştırmaz; yalnızca panoya kopyalar. Komutları Terminal’e kullanıcı kendisi yapıştırıp
+          çalıştırır.
+        </p>
+        <p class="lumos-install-note">
+          Komutlar yerel geliştirme ortamı içindir. Resmi servisler, API erişimleri ve kullanıcı verileri kontrollü izin yapısıyla korunur.
+        </p>
+        <div class="lumos-install-actions">
+          <a
+            class="lumos-hero-btn lumos-hero-btn--primary"
+            href={GITHUB_REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer">GitHub'da aç</a>
+          <a class="lumos-hero-btn lumos-hero-btn--ghost" href="/panel">Paneli dene</a>
+        </div>
+        <div class="lumos-install-versions">
+          <h3 class="lumos-install-versions__heading">Sürümler</h3>
+          <div class="lumos-install-versions__sub">
+            <h4>Açık kaynak geliştirme sürümü:</h4>
+            <p>
+              Lumos’un kaynak kodu geliştiriciler tarafından yerelde incelenebilir, çalıştırılabilir ve katkıya açık biçimde geliştirilebilir. Bu sürüm yerel geliştirme ve deneme amaçlıdır.
+            </p>
+          </div>
+          <div class="lumos-install-versions__sub">
+            <h4>Resmi / profesyonel sürüm:</h4>
+            <p>
+              We Lock AI çatısı altında sunulacak resmi Lumos sürümü; panel, servis bağlantıları, güvenli API erişimleri, entegrasyonlar ve kullanıcı izin akışlarıyla kontrollü biçimde çalışacaktır. Bu sürüm hazır olduğunda indirme, erişim ve kullanım koşulları ayrıca duyurulacaktır.
+            </p>
+          </div>
+          <p class="lumos-install-versions__footnote">
+            Ücretli veya resmi servis erişimi; açık kaynak koddan bağımsız olarak kimlik doğrulama, kullanıcı onayı ve
+            tanımlı kullanım sınırlarıyla yönetilir.
+          </p>
+          <div class="lumos-install-actions lumos-install-actions--versions">
+            <button
+              type="button"
+              class="lumos-hero-btn lumos-hero-btn--ghost"
+              disabled
+              aria-disabled="true">Resmi sürüm bildirimi<span class="lumos-install-soon-badge">Yakında</span></button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="lumos-modules-stack">
+      <div class="lumos-modules-stack__banner" aria-hidden="true"></div>
+      <section id="moduller" class="lumos-cap" aria-labelledby="lumos-cap-title">
+        <h2 id="lumos-cap-title" class="lumos-cap-title">Lumos Modülleri</h2>
+        <p class="lumos-cap-deck">
+          Aşağıdaki başlıklar ürün kapsamının özünü özetler; ayrıntılı modül notları sayfanın devamında yer alır.
+        </p>
+        <div class="lumos-scope-grid">
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-sohbet">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  opacity="0.45"
+                  d="M15.5 5.5h9c1.38 0 2.5 1.12 2.5 2.5v5.2c0 1.38-1.12 2.5-2.5 2.5h-3.1l-2.4 2.1V15.7H15.5A2.5 2.5 0 0 1 13 13.2V8c0-1.38 1.12-2.5 2.5-2.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  opacity="0.75"
+                  d="M15.5 5.5h9c1.38 0 2.5 1.12 2.5 2.5v5.2c0 1.38-1.12 2.5-2.5 2.5h-3.1l-2.4 2.1V15.7H15.5A2.5 2.5 0 0 1 13 13.2V8c0-1.38 1.12-2.5 2.5-2.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  d="M6.5 9.5c0-1.38 1.12-2.5 2.5-2.5h9c1.38 0 2.5 1.12 2.5 2.5v6.5c0 1.38-1.12 2.5-2.5 2.5h-4.2L9 22.5V18h-.5A2.5 2.5 0 0 1 6 16V9.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M6.5 9.5c0-1.38 1.12-2.5 2.5-2.5h9c1.38 0 2.5 1.12 2.5 2.5v6.5c0 1.38-1.12 2.5-2.5 2.5h-4.2L9 22.5V18h-.5A2.5 2.5 0 0 1 6 16V9.5Z"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M10.5 12.5h7M10.5 15h5" />
+              </svg>
+            </span>
+            <h3>Sohbet</h3>
+            <p>Metin tabanlı görevleri şeffaf adımlarla yönetilen bir diyalog yüzeyinde toplar.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-gorsel-analiz">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect class="lumos-mod-ico__fill-cyan" x="4.5" y="7" width="15" height="13" rx="2.2" />
+                <rect class="lumos-mod-ico__stroke" x="4.5" y="7" width="15" height="13" rx="2.2" />
+                <circle class="lumos-mod-ico__stroke" cx="11.5" cy="13.5" r="3.4" />
+                <circle class="lumos-mod-ico__gold-stroke" cx="20.5" cy="20.5" r="4.6" />
+                <path class="lumos-mod-ico__gold-stroke" d="M23.8 23.8 27.5 27.5" />
+              </svg>
+            </span>
+            <h3>Görsel Analiz</h3>
+            <p>Görüntü ve ekran bağlamını okunur özetlerle sunar; nihai yorumu size bırakır.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-ses">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M4 19.5v-7M8 21.5v-11M12 22.5v-13M16 21.5v-11M20 19.5v-7M24 18.5v-5"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M9 24.5h14" />
+              </svg>
+            </span>
+            <h3>Ses</h3>
+            <p>Sesli komut ve yanıtları kontrollü bir akışta işler; izin ve sınırlar görünür kalır.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-medya">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect class="lumos-mod-ico__fill-cyan" x="4" y="8" width="24" height="16" rx="2.5" />
+                <rect class="lumos-mod-ico__stroke" x="4" y="8" width="24" height="16" rx="2.5" />
+                <path class="lumos-mod-ico__stroke" d="M4 11h24" opacity="0.35" />
+                <path class="lumos-mod-ico__gold" d="M13 12.5 21.5 16 13 19.5z" stroke="none" />
+                <path class="lumos-mod-ico__gold-stroke" d="M13 12.5 21.5 16 13 19.5z" fill="none" stroke-width="1.6" />
+              </svg>
+            </span>
+            <h3>Medya</h3>
+            <p>Ses, görüntü ve dosya hareketlerini tek panelden izlenebilir tutar.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-gorevler">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect class="lumos-mod-ico__fill-cyan" x="7" y="5.5" width="18" height="21" rx="2.2" />
+                <rect class="lumos-mod-ico__stroke" x="7" y="5.5" width="18" height="21" rx="2.2" />
+                <path class="lumos-mod-ico__stroke" d="M10.5 11h11M10.5 16h11M10.5 21h8" opacity="0.4" />
+                <path class="lumos-mod-ico__gold-stroke" d="M9.2 10.8 10.8 12.4 13.6 9.6M9.2 15.8 10.8 17.4 13.6 14.6M9.2 20.8 10.8 22.4 13.6 19.6" />
+              </svg>
+            </span>
+            <h3>Görevler</h3>
+            <p>Dağınık işleri modüller arasında görünür bir sıraya dönüştürür.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-posta">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  d="M5.5 10.5c0-1.38 1.12-2.5 2.5-2.5h16c1.38 0 2.5 1.12 2.5 2.5v11c0 1.38-1.12 2.5-2.5 2.5H8c-1.38 0-2.5-1.12-2.5-2.5v-11Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M5.5 10.5c0-1.38 1.12-2.5 2.5-2.5h16c1.38 0 2.5 1.12 2.5 2.5v11c0 1.38-1.12 2.5-2.5 2.5H8c-1.38 0-2.5-1.12-2.5-2.5v-11Z"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M5.5 10.5 16 18.5 26.5 10.5" />
+              </svg>
+            </span>
+            <h3>Posta</h3>
+            <p>Mesaj ve hesap etkileşimlerinde bağlamı ve riski öne çıkarır.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-dosyalar">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  d="M6.5 10.5 11 10.5 12.8 8h9.7c1.38 0 2.5 1.12 2.5 2.5v13c0 1.38-1.12 2.5-2.5 2.5H9c-1.38 0-2.5-1.12-2.5-2.5v-13Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M6.5 10.5 11 10.5 12.8 8h9.7c1.38 0 2.5 1.12 2.5 2.5v13c0 1.38-1.12 2.5-2.5 2.5H9c-1.38 0-2.5-1.12-2.5-2.5v-13Z"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M11 15.5h10M11 19h7" />
+              </svg>
+            </span>
+            <h3>Dosyalar</h3>
+            <p>Yerel ve uzak dosya akışlarında veri yolunu anlaşılır kılar.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-kimlik">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  d="M16 4.5c-5.2 0-9.5 4-9.5 9.2 0 2.6 1 5 2.7 6.8L7.5 27l5.8-3.2c0.8 0.2 1.7 0.3 2.7 0.3 5.2 0 9.5-4 9.5-9.2S21.2 4.5 16 4.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M16 4.5c-5.2 0-9.5 4-9.5 9.2 0 2.6 1 5 2.7 6.8L7.5 27l5.8-3.2c0.8 0.2 1.7 0.3 2.7 0.3 5.2 0 9.5-4 9.5-9.2S21.2 4.5 16 4.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M11.5 12.5c2.2-3.2 6.8-3.2 9 0M10.5 16.5c2.8-2.8 8.2-2.8 11 0M10 20.5c3-2 9-2 12 0"
+                  opacity="0.55"
+                />
+                <path
+                  class="lumos-mod-ico__gold-stroke"
+                  d="M19 8.5h4.5v4.5M19 8.5 23.5 13"
+                />
+              </svg>
+            </span>
+            <h3>Kimlik</h3>
+            <p>Oturum, rol ve cihaz güvenini tek çatı altında yönetilebilir sunar.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-guvenlik">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__fill-cyan"
+                  d="M16 4.5 7.5 8.2v7.3c0 5.8 3.8 10.6 8.5 12 4.7-1.4 8.5-6.2 8.5-12V8.2L16 4.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M16 4.5 7.5 8.2v7.3c0 5.8 3.8 10.6 8.5 12 4.7-1.4 8.5-6.2 8.5-12V8.2L16 4.5Z"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M12.5 16.2 15 18.7 20.5 13.2" />
+              </svg>
+            </span>
+            <h3>Güvenlik</h3>
+            <p>Yüksek riskli işlemlerde ek doğrulama ve denetlenebilirlik sağlar.</p>
+          </a>
+          <a class="lumos-scope-card lumos-scope-card-link" href="#modul-entegrasyon">
+            <span class="lumos-scope-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M7.5 11.5h6c0.8 0 1.5 0.7 1.5 1.5v6c0 0.8-0.7 1.5-1.5 1.5h-6c-0.8 0-1.5-0.7-1.5-1.5V13c0-0.8 0.7-1.5 1.5-1.5Z"
+                />
+                <path
+                  class="lumos-mod-ico__stroke"
+                  d="M18.5 11.5h6c0.8 0 1.5 0.7 1.5 1.5v6c0 0.8-0.7 1.5-1.5 1.5h-6c-0.8 0-1.5-0.7-1.5-1.5V13c0-0.8 0.7-1.5 1.5-1.5Z"
+                  opacity="0.88"
+                />
+                <path class="lumos-mod-ico__gold-stroke" d="M14.5 16h3M16 14.5v3" />
+                <path class="lumos-mod-ico__stroke" d="M13.5 8.5 16 11l2.5-2.5M13.5 23.5 16 21l2.5 2.5" opacity="0.55" />
+              </svg>
+            </span>
+            <h3>Entegrasyon</h3>
+            <p>Harici servisleri aynı kontrol katmanında birleştirir; kapsam sözleşmeli kalır.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="lumos-modules" aria-labelledby="lumos-module-detail-title">
+        <h2 id="lumos-module-detail-title">Modül açıklamaları</h2>
+        <div class="lumos-modules-grid">
+          <article id="modul-sohbet" class="lumos-module-item">
+            <h3>Sohbet</h3>
+            <p>
+              Metin tabanlı görevleri şeffaf adımlarla yönetilen bir diyalog yüzeyinde toplar. Özet ve önerilerde kaynak
+              bağlamını ve belirsizlikleri görünür kılmayı; otomatik yürütme yerine kontrol listesi ve insan onayını
+              önceliklendirmeyi hedefler.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-gorsel-analiz" class="lumos-module-item">
+            <h3>Görsel Analiz</h3>
+            <p>
+              Görüntü ve ekran bağlamını okunur özetlerle sunar; nihai yorumu size bırakır. Riskli veya yanlış yönlendirici
+              çıkarımlarda duraklatma ve onay noktalarını görünür tutmayı amaçlar.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-ses" class="lumos-module-item">
+            <h3>Ses</h3>
+            <p>
+              Sesli komut ve yanıtları kontrollü bir akışta işler; izin ve sınırlar görünür kalır. Yerel işleme ile dış
+              servise aktarım ayrımını anlaşılır kılmayı hedefler.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-medya" class="lumos-module-item">
+            <h3>Medya</h3>
+            <p>
+              Ses, görüntü ve dosya aktarımlarını düzenler; yerelde işlenen ile dışarı gönderilen içeriği ayırt etmeyi
+              kolaylaştırmayı amaçlar. Dönüştürme, birleştirme veya paylaşım adımlarında izlenebilir bir sıra sunar.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-gorevler" class="lumos-module-item">
+            <h3>Görevler</h3>
+            <p>
+              Dağınık işleri modüller arasında görünür bir sıraya dönüştürür. Görevin hangi modülde hangi adımda olduğunu
+              takip etmeyi kolaylaştırmayı hedefler.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-posta" class="lumos-module-item">
+            <h3>Posta</h3>
+            <p>
+              Mesaj ve hesap etkileşimlerinde bağlamı ve riski öne çıkarır. Kalıcı veya dışarı aktarım doğuran adımlarda
+              net onay akışlarını önceliklendirmeyi amaçlar.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-dosyalar" class="lumos-module-item">
+            <h3>Dosyalar</h3>
+            <p>
+              Yerel ve uzak dosya akışlarında veri yolunu anlaşılır kılar. Paylaşım, dönüştürme veya silme gibi geri
+              dönüşü zor işlemlerde ek uyarı ve özet sunmayı hedefler.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-kimlik" class="lumos-module-item">
+            <h3>Kimlik</h3>
+            <p>
+              Oturumlar, roller ve cihaz güvenini tek yerden gözden geçirmeyi hedefler. Profil ve izin değişikliklerinde
+              kullanıcıya net geri bildirim verir; kimlik bilgisinin nerede kullanıldığını anlamayı kolaylaştırır.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-guvenlik" class="lumos-module-item">
+            <h3>Güvenlik</h3>
+            <p>
+              Silme, ödeme, içerik yayını veya hesap ayarı gibi geri dönüşü zor işlemlerde ek doğrulama ve günlük
+              izlenebilirlik sağlamayı amaçlar. Şüpheli veya tekrarlayan isteklerde kullanıcıyı uyarır.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+          <article id="modul-entegrasyon" class="lumos-module-item">
+            <h3>Entegrasyon</h3>
+            <p>
+              Üçüncü taraf API’ler, bulut servisleri ve yerel uygulamalar arasında tek bir orchestrasyon yüzeyi sunmayı
+              amaçlar. Her bağlantı için kapsam, süre ve veri paylaşımı mümkün olduğunca sözleşmeli ve görünür tutulur.
+            </p>
+            <a class="lumos-modul-back" href="#top">Yukarı dön</a>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="lumos-may19-overlay"
+      class="lumos-may19-overlay"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="lumos-may19-overlay__backdrop" aria-hidden="true"></div>
+      <div
+        class="lumos-may19-overlay__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lumos-may19-dialog-label"
+      >
+        <p id="lumos-may19-dialog-label" class="lumos-may19-overlay__text">
+          Bilime, akla, barışa ve insan onuruna saygıyla.
+        </p>
+        <div id="lumos-may19-count" class="lumos-may19-overlay__count" aria-live="polite">60</div>
+        <button type="button" class="lumos-may19-close-btn" id="lumos-may19-close">Kapat</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var form = document.getElementById("lumos-hero-ask");
+        var input = document.getElementById("lumos-hero-ask-input");
+        if (form && input) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var q = String(input.value || "").trim();
+            if (q) {
+              window.location.href = "/panel?q=" + encodeURIComponent(q);
+            } else {
+              window.location.href = "/panel";
+            }
+          });
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        var openBtn = document.getElementById("lumos-may19-open");
+        var overlay = document.getElementById("lumos-may19-overlay");
+        var closeBtn = document.getElementById("lumos-may19-close");
+        var countEl = document.getElementById("lumos-may19-count");
+        if (!openBtn || !overlay || !closeBtn || !countEl) return;
+
+        var timerId = null;
+        var remaining = 60;
+
+        function clearTimer() {
+          if (timerId !== null) {
+            clearInterval(timerId);
+            timerId = null;
+          }
+        }
+
+        function resetDisplay() {
+          remaining = 60;
+          countEl.textContent = "60";
+        }
+
+        function closeOverlay() {
+          clearTimer();
+          resetDisplay();
+          overlay.classList.remove("is-open");
+          overlay.setAttribute("hidden", "");
+          overlay.setAttribute("aria-hidden", "true");
+          document.removeEventListener("keydown", onKeyDown);
+          openBtn.focus();
+        }
+
+        function onKeyDown(e) {
+          if (e.key === "Escape") {
+            e.preventDefault();
+            closeOverlay();
+          }
+        }
+
+        function openOverlay() {
+          clearTimer();
+          resetDisplay();
+          overlay.removeAttribute("hidden");
+          overlay.classList.add("is-open");
+          overlay.setAttribute("aria-hidden", "false");
+          document.addEventListener("keydown", onKeyDown);
+          closeBtn.focus();
+
+          timerId = window.setInterval(function () {
+            remaining -= 1;
+            if (remaining <= 0) {
+              countEl.textContent = "0";
+              clearTimer();
+              return;
+            }
+            countEl.textContent = String(remaining);
+          }, 1000);
+        }
+
+        openBtn.addEventListener("click", openOverlay);
+        closeBtn.addEventListener("click", closeOverlay);
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        var root = document.getElementById("kurulum");
+        if (!root) return;
+        var defaultLabel = "Kopyala";
+        root.addEventListener("click", function (e) {
+          var btn = e.target && e.target.closest && e.target.closest("[data-install-copy]");
+          if (!btn || !root.contains(btn)) return;
+          var text = btn.getAttribute("data-copy-text");
+          if (!text) return;
+          if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") return;
+          e.preventDefault();
+          navigator.clipboard.writeText(text).then(
+            function () {
+              btn.textContent = "Kopyalandı";
+              if (btn.__lumosCopyTid) window.clearTimeout(btn.__lumosCopyTid);
+              btn.__lumosCopyTid = window.setTimeout(function () {
+                btn.textContent = defaultLabel;
+              }, 1800);
+            },
+            function () {
+              /* fail silently */
+            }
+          );
+        });
+      })();
+    </script>
+  </body>
+</html>

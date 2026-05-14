@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Stylized scene: educator with diverse children and abstract AI knowledge motif. Original illustration, not a photographic portrait.">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020510"/>
+      <stop offset="45%" stop-color="#06122a"/>
+      <stop offset="100%" stop-color="#0a1838"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#040818"/>
+      <stop offset="100%" stop-color="#010308"/>
+    </linearGradient>
+    <radialGradient id="rim" cx="35%" cy="85%" r="70%">
+      <stop offset="0%" stop-color="rgb(56,206,255)" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="rgb(8,52,108)" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="holo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgb(168,233,255)" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="rgb(56,206,255)" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="rgb(8,52,108)" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Upper-right: intentionally quiet composition (no flag-like motifs) -->
+  <rect x="780" y="0" width="420" height="320" fill="url(#sky)" opacity="0.35"/>
+  <!-- Stars: sparse, not clustered in corners -->
+  <g fill="#c8e8ff" opacity="0.35">
+    <circle cx="120" cy="90" r="1.2"/><circle cx="220" cy="55" r="0.9"/><circle cx="340" cy="110" r="1"/>
+    <circle cx="480" cy="70" r="1.1"/><circle cx="620" cy="95" r="0.85"/><circle cx="720" cy="60" r="1"/>
+    <circle cx="180" cy="180" r="0.7"/><circle cx="400" cy="200" r="0.8"/>
+  </g>
+  <ellipse cx="520" cy="880" rx="900" ry="420" fill="url(#ground)"/>
+  <rect width="1200" height="800" fill="url(#rim)"/>
+  <!-- Holographic lesson: abstract knowledge / AI graph -->
+  <g filter="url(#glow)" transform="translate(560, 220)">
+    <circle r="78" fill="none" stroke="rgb(56,206,255)" stroke-width="1.2" opacity="0.5"/>
+    <circle r="52" fill="url(#holo)" opacity="0.35"/>
+    <path d="M-90,-20 L-40,10 M40,-35 L90,5 M-30,70 L30,85" stroke="rgb(130,206,255)" stroke-width="1.4" fill="none" opacity="0.55"/>
+    <circle cx="-55" cy="35" r="6" fill="rgb(56,206,255)" opacity="0.5"/>
+    <circle cx="60" cy="-25" r="5" fill="rgb(186,148,88)" opacity="0.45"/>
+    <circle cx="15" cy="50" r="4" fill="rgb(168,233,255)" opacity="0.6"/>
+    <path d="M-35,-45 Q0,-75 35,-45" stroke="rgb(168,233,255)" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+  <!-- Children: diverse silhouettes, geometric (no national symbols) -->
+  <g opacity="0.92">
+    <!-- child 1 -->
+    <ellipse cx="280" cy="545" rx="28" ry="14" fill="#0a1020" opacity="0.6"/>
+    <path d="M255 540 Q265 470 280 455 Q295 470 305 540" fill="#1a2438" stroke="rgb(56,206,255)" stroke-width="0.6" stroke-opacity="0.25"/>
+    <circle cx="280" cy="438" r="22" fill="#c49a6c" filter="url(#soft)"/>
+    <path d="M262 432 Q280 420 298 432" fill="none" stroke="#2a3448" stroke-width="8" stroke-linecap="round"/>
+    <!-- child 2 -->
+    <ellipse cx="360" cy="552" rx="26" ry="13" fill="#0a1020" opacity="0.55"/>
+    <path d="M338 548 Q348 485 362 468 Q378 485 388 548" fill="#141c2e" stroke="rgb(56,206,255)" stroke-width="0.5" stroke-opacity="0.2"/>
+    <circle cx="362" cy="452" r="20" fill="#8d623f" filter="url(#soft)"/>
+    <path d="M348 448 Q362 438 376 448" fill="none" stroke="#1a2030" stroke-width="7" stroke-linecap="round"/>
+    <!-- child 3 -->
+    <ellipse cx="430" cy="558" rx="24" ry="12" fill="#0a1020" opacity="0.5"/>
+    <path d="M410 554 Q420 495 432 478 Q448 495 456 554" fill="#121a2a" stroke="rgb(56,206,255)" stroke-width="0.45" stroke-opacity="0.18"/>
+    <circle cx="432" cy="462" r="19" fill="#e8c4a8" filter="url(#soft)"/>
+  </g>
+  <!-- Central educator: stylized silhouette, not a photographic likeness -->
+  <g>
+    <ellipse cx="480" cy="575" rx="42" ry="16" fill="#050810" opacity="0.65"/>
+    <!-- long coat -->
+    <path d="M420 560 L415 420 Q418 360 455 340 L505 338 Q540 355 545 420 L538 565 Q480 580 420 560" fill="#0c1424" stroke="rgb(56,206,255)" stroke-width="0.8" stroke-opacity="0.2"/>
+    <!-- raised hand gesture -->
+    <path d="M545 400 Q585 360 600 320 Q595 300 575 295 Q555 310 535 385" fill="#0c1424" stroke="rgb(130,206,255)" stroke-width="0.7" stroke-opacity="0.35"/>
+    <!-- collar / bust -->
+    <path d="M455 340 L505 338 L512 380 Q480 395 448 380 Z" fill="#141c2c"/>
+    <!-- Head: featureless, dignified outline -->
+    <ellipse cx="488" cy="305" rx="32" ry="36" fill="#d4c4b0" filter="url(#soft)"/>
+    <path d="M458 298 Q488 275 518 298" fill="none" stroke="#2a3038" stroke-width="10" stroke-linecap="round"/>
+    <!-- peaked formal cap suggestion (abstract geometric, not insignia) -->
+    <path d="M456 285 L488 230 L520 285 Q488 275 456 285" fill="#1a2234" stroke="rgb(56,206,255)" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+  <!-- Cinematic vignette -->
+  <rect width="1200" height="800" fill="url(#vig)"/>
+</svg>
