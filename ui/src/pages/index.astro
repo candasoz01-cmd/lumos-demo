@@ -2025,6 +2025,20 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
     color: #eef7ff !important;
   }
 
+
+  .lumos-install-versions,
+  .lumos-install-versions p,
+  .lumos-install-versions li,
+  .lumos-install-versions span {
+    color: #d7e7f2 !important;
+  }
+  .lumos-install-versions strong,
+  .lumos-install-versions b,
+  .lumos-install-versions h3,
+  .lumos-install-versions h4 {
+    color: #eef7ff !important;
+  }
+
 </style>
   </head>
   <body class="lumos-landing">
@@ -2065,7 +2079,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
                 <a class="lumos-site-nav__link" href="#kurulum">Kurulum</a>
               </li>
               <li>
-                <a class="lumos-site-nav__link lumos-site-nav__link--accent" href="/panel">Panel</a>
+                <span class="lumos-site-nav__link lumos-site-nav__link--accent lumos-site-nav__link--disabled" aria-disabled="true">Panel <span class="lumos-install-soon-badge">Yakında</span></span>
               </li>
               <li>
                 <a
@@ -2103,7 +2117,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
             </p>
             <p class="lumos-hero-pillar">Tek panel · Çoklu akış · Kullanıcı kontrolü</p>
             <div class="lumos-hero-actions">
-              <a class="lumos-hero-btn lumos-hero-btn--primary" href="/panel">Lumos Panel’e Git</a>
+              <a class="lumos-hero-btn lumos-hero-btn--primary" href="#kurulum">Kurulumu gör</a>
               <a class="lumos-hero-btn lumos-hero-btn--ghost" href="#dunya">Dünyayı Keşfet</a>
             </div>
           </div>
@@ -2120,7 +2134,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
           </div>
         </div>
         <div class="lumos-hero-ask-band">
-          <form class="lumos-hero-ask" id="lumos-hero-ask" action="/panel" method="get" autocomplete="off" aria-label="Lumos’a sor">
+          <form class="lumos-hero-ask" id="lumos-hero-ask" action="#kurulum" method="get" autocomplete="off" aria-label="Lumos’a sor">
             <input
               class="lumos-hero-ask__field"
               id="lumos-hero-ask-input"
@@ -2441,7 +2455,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
           <article class="lumos-install-step">
             <h3>Adım 5 — Tarayıcıda aç</h3>
             <div class="lumos-install-cmd">
-              <pre class="lumos-install-pre"><code>http://localhost:4321</code></pre>
+              <pre class="lumos-install-pre"><code>Tarayıcıda görünen localhost adresini aç</code></pre>
               <div class="lumos-install-cmd__meta">
                 <button
                   type="button"
@@ -2450,9 +2464,9 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
                   data-copy-text="http://localhost:4321">Kopyala</button>
                 <a
                   class="lumos-install-open-link"
-                  href="http://localhost:4321"
+                  href="/"
                   target="_blank"
-                  rel="noopener noreferrer">Aç</a>
+                  rel="noopener noreferrer">Yerel siteyi aç</a>
               </div>
             </div>
           </article>
@@ -2470,7 +2484,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
             href={GITHUB_REPO_URL}
             target="_blank"
             rel="noopener noreferrer">GitHub'da aç</a>
-          <a class="lumos-hero-btn lumos-hero-btn--ghost" href="/panel">Paneli dene</a>
+          <a class="lumos-hero-btn lumos-hero-btn--ghost" href="#kurulum">Kurulumu gör</a>
         </div>
         <div class="lumos-install-versions">
           <h3 class="lumos-install-versions__heading">Sürümler</h3>
@@ -2802,11 +2816,7 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
           form.addEventListener("submit", function (e) {
             e.preventDefault();
             var q = String(input.value || "").trim();
-            if (q) {
-              window.location.href = "/panel?q=" + encodeURIComponent(q);
-            } else {
-              window.location.href = "/panel";
-            }
+            window.location.hash = "kurulum";
           });
         }
       })();
