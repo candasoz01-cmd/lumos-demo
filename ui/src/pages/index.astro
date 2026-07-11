@@ -1569,6 +1569,24 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
         color: rgb(232 196 132 / 0.94);
         background: rgb(var(--lumos-land-warm) / 0.07);
       }
+      .lumos-domain-section {
+        scroll-margin-top: 5.5rem;
+        margin-top: clamp(1.5rem, 3.6vw, 2.35rem);
+        padding-top: clamp(1rem, 2.4vw, 1.45rem);
+        border-top: 1px solid rgb(var(--lumos-land-teal) / 0.18);
+      }
+      .lumos-domain-section .lumos-layer-title {
+        margin-top: 0;
+      }
+      .lumos-domain-kicker {
+        display: inline-block;
+        margin-bottom: 0.36rem;
+        font-size: 0.67rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgb(var(--lumos-land-warm) / 0.86);
+      }
       a.lumos-scope-card-link {
         display: flex;
         flex-direction: column;
@@ -2140,6 +2158,15 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
               </li>
               <li>
                 <a class="lumos-site-nav__link" href="#moduller">Modüller</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#kuantum">Kuantum</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#baglantilar">Bağlantılar</a>
+              </li>
+              <li>
+                <a class="lumos-site-nav__link" href="#hizmetler">Hizmetler</a>
               </li>
               <li>
                 <a class="lumos-site-nav__link" href="#gelistirici">Geliştirici</a>
@@ -2767,62 +2794,129 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
           </a>
         </div>
 
-        <h3 class="lumos-layer-title">Teknik katmanlar</h3>
-        <p class="lumos-layer-deck">
-          Ürün yüzeyinin arkasındaki doğrulanmış bağlantılar ve araştırma alanları. Durum etiketleri canlı erişim ile
-          hazırlık aşamasını birbirine karıştırmaz.
-        </p>
-        <div class="lumos-layer-grid">
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>Quantum Security</h4>
-              <span class="lumos-layer-status lumos-layer-status--limited">Yerel · deneysel</span>
-            </div>
-            <p>Yerel katalog ve güvenlik hazırlığı akışı var; kuantum bulutuna otomatik bağlantı yok.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>Slack</h4>
-              <span class="lumos-layer-status">HTTP v1 iskelet</span>
-            </div>
-            <p>İmzalı olay, komut ve etkileşim rotaları hazır; canlı secret ve OAuth kontrollü kurulum ister.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>GitHub</h4>
-              <span class="lumos-layer-status lumos-layer-status--limited">Bağlantı bağlamı</span>
-            </div>
-            <p>Repo ve PR adımlarını hazırlama/yönlendirme kapsamı kayıtlı; canlı OAuth henüz açık değil.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>Posta · Mail</h4>
-              <span class="lumos-layer-status lumos-layer-status--limited">Kapsam tanımlı</span>
-            </div>
-            <p>Mesaj bağlamı ve risk görünürlüğü ürün kapsamındadır; canlı hesap erişimi bu vitrinde açılmaz.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>Google · Takvim</h4>
-              <span class="lumos-layer-status lumos-layer-status--limited">OAuth backlog</span>
-            </div>
-            <p>Takvim ve hesap bağlamı kayıtlıdır; kullanıcı izni olmadan bağlantı veya değişiklik yapılmaz.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>LinkedIn</h4>
-              <span class="lumos-layer-status">Paket v0</span>
-            </div>
-            <p>Profil ve iş arama önerileri hazırlar; izin olmadan kullanıcı profilini güncellemez.</p>
-          </article>
-          <article class="lumos-layer-card">
-            <div class="lumos-layer-card__top">
-              <h4>API · Connect</h4>
-              <span class="lumos-layer-status">Omurga</span>
-            </div>
-            <p>Dış servis adımlarını ortak yetki sözleşmesiyle hazırlar; otomatik ve onaysız değişiklik yapmaz.</p>
-          </article>
-        </div>
+        <section id="kuantum" class="lumos-domain-section" aria-labelledby="kuantum-baslik">
+          <span class="lumos-domain-kicker">Araştırma → ölçülebilir hazırlık</span>
+          <h3 id="kuantum-baslik" class="lumos-layer-title">Kuantum</h3>
+          <p class="lumos-layer-deck">
+            Lumos Quantum, gösteri amaçlı bir “gelecek” etiketi değil; bugünün sistemlerini kuantum sonrası güvenliğe
+            hazırlayan yerel ve kanıta dayalı bir çalışma alanıdır.
+          </p>
+          <div class="lumos-layer-grid">
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Quantum Security Readiness</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Yerel · deneysel</span>
+              </div>
+              <p>Kriptografik kullanım, uzun ömürlü hassas veri ve geçiş riski için hazırlık görünürlüğü sağlar.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Yerel katalog</h4>
+                <span class="lumos-layer-status">Katalog v0</span>
+              </div>
+              <p>Deneyler tanımlı yerel işler üzerinden yürür; sonuç ile araştırma iddiası birbirine karıştırılmaz.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Bulut sınırı</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Bağlı değil</span>
+              </div>
+              <p>IBM, AWS veya başka bir kuantum bulutuna otomatik bağlantı kurulmaz; açık kurulum ve onay gerekir.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="baglantilar" class="lumos-domain-section" aria-labelledby="baglantilar-baslik">
+          <span class="lumos-domain-kicker">Kontrollü ekosistem</span>
+          <h3 id="baglantilar-baslik" class="lumos-layer-title">Bağlantılar</h3>
+          <p class="lumos-layer-deck">
+            Lumos dış servisleri ayrı ürünler gibi öne çıkarmaz; ihtiyaç anında devreye giren yetenekler olarak yönetir.
+            Canlı erişim ile hazırlık durumu açıkça ayrılır.
+          </p>
+          <div class="lumos-layer-grid">
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Slack</h4>
+                <span class="lumos-layer-status">HTTP v1 iskelet</span>
+              </div>
+              <p>İmzalı olay, komut ve etkileşim rotaları hazır; canlı secret ve OAuth kontrollü kurulum ister.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>GitHub</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Bağlantı bağlamı</span>
+              </div>
+              <p>Repo ve PR adımlarını hazırlama/yönlendirme kapsamı kayıtlı; canlı OAuth henüz açık değil.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Posta · Mail</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Kapsam tanımlı</span>
+              </div>
+              <p>Mesaj bağlamı ve risk görünürlüğü ürün kapsamındadır; canlı hesap erişimi bu vitrinde açılmaz.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Google · Takvim</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">OAuth backlog</span>
+              </div>
+              <p>Takvim ve hesap bağlamı kayıtlıdır; kullanıcı izni olmadan bağlantı veya değişiklik yapılmaz.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>LinkedIn</h4>
+                <span class="lumos-layer-status">Paket v0</span>
+              </div>
+              <p>Profil ve iş arama önerileri hazırlar; izin olmadan kullanıcı profilini güncellemez.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>API · Connect</h4>
+                <span class="lumos-layer-status">Omurga</span>
+              </div>
+              <p>Dış servis adımlarını ortak yetki sözleşmesiyle hazırlar; otomatik ve onaysız değişiklik yapmaz.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="hizmetler" class="lumos-domain-section" aria-labelledby="hizmetler-baslik">
+          <span class="lumos-domain-kicker">Sağladığımız değer</span>
+          <h3 id="hizmetler-baslik" class="lumos-layer-title">Hizmetler</h3>
+          <p class="lumos-layer-deck">
+            Lumos’un hizmeti tek bir model satmak değil; işi anlaşılır adımlara ayırmak, riski görünür kılmak ve son
+            kararı kullanıcıda tutmaktır.
+          </p>
+          <div class="lumos-layer-grid">
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Sohbet ve görev düzenleme</h4>
+                <span class="lumos-layer-status">Ürün omurgası</span>
+              </div>
+              <p>Dağınık istekleri bağlamı ve sonraki adımı görünen, takip edilebilir bir çalışma akışına dönüştürür.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Risk ve onay görünürlüğü</h4>
+                <span class="lumos-layer-status">Kontrollü</span>
+              </div>
+              <p>Kalıcı, maliyetli veya dışarı veri gönderen işlemlerde sınırı açıklar ve kullanıcı onayında durur.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Entegrasyon hazırlığı</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Kademeli</span>
+              </div>
+              <p>Bağlantı adımlarını, izin kapsamını ve eksik yapılandırmayı görünür hale getirir; sessiz bağlanmaz.</p>
+            </article>
+            <article class="lumos-layer-card">
+              <div class="lumos-layer-card__top">
+                <h4>Güvenlik hazırlığı</h4>
+                <span class="lumos-layer-status lumos-layer-status--limited">Yerel kanıt</span>
+              </div>
+              <p>Mevcut güvenlik durumunu ve kuantum sonrası geçiş ihtiyacını ölçülebilir yerel bulgularla ele alır.</p>
+            </article>
+          </div>
+        </section>
       </section>
 
       <section class="lumos-modules" aria-labelledby="lumos-module-detail-title">
