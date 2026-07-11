@@ -438,11 +438,20 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
         color: var(--lumos-land-title);
       }
       .lumos-site-nav__brand-sub {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.24rem;
         font-size: clamp(0.58rem, 1.35vw, 0.68rem);
         font-weight: 650;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: rgb(var(--lumos-land-warm) / 0.9);
+      }
+      .lumos-quantum-star {
+        width: 12px;
+        height: 12px;
+        flex: 0 0 auto;
+        filter: drop-shadow(0 0 5px rgb(var(--lumos-land-warm) / 0.24));
       }
       .lumos-hero-cinematic__inner {
         position: relative;
@@ -2058,7 +2067,10 @@ const GITHUB_REPO_URL = "https://github.com/candasoz01-cmd/lumos-core";
                 />
                 <span class="lumos-site-nav__brand-text">
                   <span class="lumos-site-nav__brand-title">Lumos</span>
-                  <span class="lumos-site-nav__brand-sub">WE LOCK AI</span>
+                  <span class="lumos-site-nav__brand-sub">
+                    WE LOCK AI
+                    <img class="lumos-quantum-star" src="/lumos-quantum-star.svg" alt="" aria-hidden="true" />
+                  </span>
                 </span>
               </a>
             </div>
